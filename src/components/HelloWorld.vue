@@ -4,7 +4,7 @@
     <h3>本网站正在开发中</h3>
     <ul>
       <li>
-        <a href="/Swagger" target="_blank" rel="noopener">
+        <a href="/swagger/" target="_blank" rel="noopener">
         <font-awesome-icon icon="swagger" />Swagger API Document</a>
       </li>
       <li>
