@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <img alt="Land logo" src="./assets/logo.svg" style="width: 300px">
+    <HelloWorld msg="欢迎使用土地调查管理平台"/>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import HelloWorld from './components/HelloWorld.vue'
+
+// import stylesheet
+import 'bulma'
+
+// import fontawesome icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faCoffee)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 @Component({
   components: {
