@@ -56,7 +56,7 @@ export default class App extends Vue {
   navIndex = 0;
 
   routerLink(index: number, path: string, abs: boolean) {
-    if (abs != undefined && abs) {
+    if (abs !== undefined && abs) {
       window.location.href = path;
     } else {
       this.navIndex = index;
