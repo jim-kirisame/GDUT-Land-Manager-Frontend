@@ -20,15 +20,15 @@ export default new Router({
         meta: {
           title: "注册"
         }
-      }/*,
-      {
-        path: "/playing",
-        name: "playing",
-        component: () => import("./views/Playing.vue"),
-        meta: {
-          title: "正在播放 - Touhou Music Library"
-        }
       },
+      {
+        path: "/",
+        name: "home",
+        component: () => import("./views/home.vue"),
+        meta: {
+          title: "主页 - 土地调查管理系统"
+        }
+      }/*,
       {
         path: "/search",
         name: "search",

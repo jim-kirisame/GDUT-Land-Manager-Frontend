@@ -4,7 +4,9 @@
       <div class="info-placeholder">
         <nav class="navbar header" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
-            <img src="@/assets/logo.svg" class="logo">
+            <a @click="home">
+              <img src="@/assets/logo.svg" class="logo">
+            </a>
           </div>
 
           <div id="navbarBasicExample" class="navbar-menu">
@@ -62,6 +64,10 @@ export default class App extends Vue {
       this.navIndex = index;
       this.$router.push(path);
     }
+  }
+  home() {
+    this.navIndex = -1;
+    this.$router.push("home");
   }
 }
 </script>

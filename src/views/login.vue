@@ -25,10 +25,10 @@
         </span>
       </div>
       <div class="control">
-        <img src="https://land.bigkeer.cn/api/Captcha/image">
+        <Capt />
       </div>
     </div>
-    <Noti :msg="message" :level="'is-danger'" @clear="clearMsg"/>
+    <Notify :msg="message" :level="'is-danger'" @clear="clearMsg"/>
     <div class="field is-grouped">
       <p class="control">
         <a class="button is-primary" @click="login">登录</a>
@@ -46,10 +46,12 @@ import Component from "vue-class-component";
 import UserAPI from "../model/user";
 import Callback from "../model/generic";
 import Notification from "@/components/notification.vue";
+import CaptchaImg from "@/components/CaptchaImg.vue";
 
 @Component({
   components: {
-    Noti: Notification
+    Notify: Notification,
+    Capt: CaptchaImg
   }
 })
 export default class LoginPage extends Vue {
@@ -62,15 +64,19 @@ export default class LoginPage extends Vue {
     this.$router.push({ name: "register" });
   }
   login() {
-    new UserAPI().Login(this.user, this.password, this.captcha, new Callback(
-    (resp) => {
-      this.$router.push({ name: "home" });
-    },
-    (code, msg) => {
-      this.message = msg;
-      console.log(msg);
-    }
-  ));
+    new UserAPI().Login(
+      this.user,
+      this.password,
+      this.captcha,
+      new Callback(
+        resp => {
+          this.$router.push({ name: "home" });
+        },
+        (code, msg) => {
+          this.message = msg;
+        }
+      )
+    );
   }
   clearMsg() {
     this.message = "";
