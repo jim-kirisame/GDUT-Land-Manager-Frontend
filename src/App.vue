@@ -19,6 +19,9 @@
                 @click="routerLink(index, item.path, item.abs)"
               >{{ item.title }}</a>
             </div>
+            <div class="navbar-end">
+              <navUser/>
+            </div>
           </div>
         </nav>
         <div class="container" id="main-vp">
@@ -47,9 +50,16 @@ import {
   faUserLock
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import userNav from "./components/nav_user.vue";
+
 library.add(faCoffee, faEnvelope, faLock, faCheck, faCode, faUser, faUserLock);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
+@Component({
+  components: {
+    navUser: userNav
+  }
+})
 export default class App extends Vue {
   nav = [
     { title: "登录", path: "/login" },

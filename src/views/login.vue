@@ -43,7 +43,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import UserAPI from "../model/user";
+import User from "../model/user";
 import Callback from "../model/generic";
 import Notification from "@/components/notification.vue";
 import CaptchaImg from "@/components/CaptchaImg.vue";
@@ -64,7 +64,7 @@ export default class LoginPage extends Vue {
     this.$router.push({ name: "register" });
   }
   login() {
-    new UserAPI().Login(
+    new User().Login(
       this.user,
       this.password,
       this.captcha,

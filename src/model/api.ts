@@ -1,8 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 
 export var baseUrl = "https://land.bigkeer.cn/api";
+//export var baseUrl = "http://localhost:2882/api";
 
+axios.defaults.withCredentials = true;
 export class User {
+    // 用户登录
     Login(user: string, password: string, captcha: string, callback: (resp: AxiosResponse) => void): void {
         const params = new URLSearchParams();
         params.append("user", user);
@@ -23,6 +26,10 @@ export class User {
         params.append("NickName", nick);
 
         post("/user", params, callback, { headers: { "x-captcha": captcha } });
+    }
+
+    Me(callback: (resp: AxiosResponse) => void) {
+        get("/user/me", callback);
     }
 }
 

@@ -84,8 +84,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import CaptchaImg from "../components/CaptchaImg.vue";
 import Notification from "../components/notification.vue";
-import { User } from "../model/api";
-import UserAPI from "../model/user";
+import User from "../model/user";
 import Callback from "../model/generic";
 
 @Component({
@@ -150,7 +149,7 @@ export default class RegisterPage extends Vue {
     }
     this.message = "";
 
-    new UserAPI().Register(
+    new User().Register(
       this.user,
       this.pass,
       this.mail,
