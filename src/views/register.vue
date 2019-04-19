@@ -64,7 +64,7 @@
         </span>
       </div>
       <div class="control">
-        <Captcha/>
+        <Captcha ref="captcha"/>
       </div>
     </div>
     <Notify :msg="message" :level="'is-danger'" @clear="clearMsg"/>
@@ -161,6 +161,7 @@ export default class RegisterPage extends Vue {
         },
         (code, msg) => {
           this.message = msg;
+          (this.$refs.captcha as CaptchaImg).reload();
         }
       )
     );

@@ -25,7 +25,7 @@
         </span>
       </div>
       <div class="control">
-        <Capt />
+        <Capt ref="captcha" />
       </div>
     </div>
     <Notify :msg="message" :level="'is-danger'" @clear="clearMsg"/>
@@ -74,6 +74,7 @@ export default class LoginPage extends Vue {
         },
         (code, msg) => {
           this.message = msg;
+          (this.$refs.captcha as CaptchaImg).reload();
         }
       )
     );

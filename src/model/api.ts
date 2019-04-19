@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 export var baseUrl = "https://land.bigkeer.cn/api";
-//export var baseUrl = "http://localhost:2882/api";
+// export var baseUrl = "http://localhost:2882/api";
 
 axios.defaults.withCredentials = true;
 export class User {

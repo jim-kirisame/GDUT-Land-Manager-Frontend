@@ -23,7 +23,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import User from "../model/user";
-import Callback from "../model/generic";
+import Callback from '../model/generic';
 
 @Component
 export default class userNav extends Vue {
@@ -34,7 +34,7 @@ export default class userNav extends Vue {
     this.$router.push("login");
   }
   logout() {
-    new User().Logout(new Callback(a => {}, (a, b) => {}));
+    new User().Logout(new Callback((a)=>{}, (a,b)=>{}));
   }
   get logined() {
     return User.IsLogin;
