@@ -7,7 +7,7 @@ export class ResponseData {
 }
 
 export default class Callback {
-    constructor (public onSuccess: (resp: any) => void, public onFail: (code: number, message: string) => void) {}
+    constructor(public onSuccess: (resp: any) => void, public onFail: (code: number, message: string) => void) { }
 
     Fail(code: number, message: string) {
         if (this.onFail !== undefined) {
@@ -25,25 +25,27 @@ export default class Callback {
         if (resp === undefined) {
             console.log("resp undefined");
         }
-        switch (resp.status) {
-            case 401:
-                this.Fail(401, "用户需要登录");
-                break;
-            case 403:
-                this.Fail(403, "当前用户没有权限操作此项目");
-                break;
-            case 404:
-            case 400:
-            case 200:
-                let response = resp.data as ResponseData;
-                if (response.code !== 0) {
-                    this.Fail(response.code, response.message);
-                } else {
-                    this.Success(response.result);
-                }
-                break;
-            default:
-                this.Fail(resp.status, "未定义的返回代码");
+
+        let response = resp.data as ResponseData;
+        if (response !== undefined) {
+            if (response.code !== 0) {
+                this.Fail(response.code, response.message);
+            } else {
+                this.Success(response.result);
+            }
+            return;
+        } else {
+            console.log(resp);
+            switch (resp.status) {
+                case 401:
+                    this.Fail(401, "用户需要登录");
+                    break;
+                case 403:
+                    this.Fail(403, "当前用户没有权限操作此项目");
+                    break;
+                default:
+                    this.Fail(resp.status, "未定义的返回代码");
+            }
         }
     }
 }

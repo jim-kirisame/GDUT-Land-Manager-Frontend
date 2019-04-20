@@ -3,8 +3,8 @@
     <a class="navbar-link">{{userName}}</a>
 
     <div class="navbar-dropdown">
-      <a class="navbar-item">管理</a>
-      <a class="navbar-item">用户设置</a>
+      <a class="navbar-item" v-if="isAdmin">管理</a>
+      <a class="navbar-item" @click="userSetting">用户设置</a>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="logout">注销</a>
     </div>
@@ -43,6 +43,9 @@ export default class userNav extends Vue {
       )
     );
   }
+  userSetting() {
+    this.$router.push({ name: "user" });
+  }
 
   mounted() {
     User.OnLoginStatusChange.on(this.onLoginStatusChange);
@@ -55,5 +58,9 @@ export default class userNav extends Vue {
 
   logined = User.IsLogin;
   userName = User.Name;
+
+  get isAdmin() {
+    return User.ACL === "0";
+  }
 }
 </script>

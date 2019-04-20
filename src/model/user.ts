@@ -31,7 +31,7 @@ export default class User {
         this.api.Register(user, password, mail, nick, captcha, (p) => { callback.RespHandler(p); });
     }
 
-    static IsLogin : boolean = Cookie.get("ACL") !== undefined;
+    static IsLogin: boolean = Cookie.get("ACL") !== undefined;
 
     static OnLoginStatusChange = new TypedEvent();
 
@@ -43,6 +43,16 @@ export default class User {
     }
 
     GetMe(callback: Callback) {
-        this.api.Me((p) => { callback.RespHandler(p); });
+        let cba = new Callback((resp) => {
+            Cookie.set("Name", resp.name, { expires: 7 });
+            User.IsLogin = true;
+            User.OnLoginStatusChange.emit({});
+            callback.onSuccess(resp);
+        }, callback.onFail);
+        this.api.Me((p) => { cba.RespHandler(p); });
+    }
+
+    AlterMe(nick: string, oldPass: string, newPass: string, callback: Callback) {
+        this.api.AlterMe(nick, oldPass, newPass, (p) => { callback.RespHandler(p); });
     }
 }

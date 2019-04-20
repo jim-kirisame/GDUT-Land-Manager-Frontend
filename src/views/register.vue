@@ -3,7 +3,13 @@
     <h1 class="title has-text-centered">用户注册</h1>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input class="input" type="text" placeholder="用户名" v-model="user">
+        <input
+          class="input"
+          type="text"
+          placeholder="用户名"
+          v-model="user"
+          :class="{'is-success': validateUser, 'is-danger': !validateUser}"
+        >
         <span class="icon is-small is-left">
           <font-awesome-icon icon="user"/>
         </span>
@@ -14,7 +20,13 @@
     </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input class="input" type="text" placeholder="昵称" v-model="nick">
+        <input
+          class="input"
+          type="text"
+          placeholder="昵称"
+          v-model="nick"
+          :class="{'is-success': validateNick, 'is-danger': !validateNick}"
+        >
         <span class="icon is-small is-left">
           <font-awesome-icon icon="user"/>
         </span>
@@ -25,7 +37,13 @@
     </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input class="input" type="email" placeholder="邮箱" v-model="mail">
+        <input
+          class="input"
+          type="email"
+          placeholder="邮箱"
+          v-model="mail"
+          :class="{'is-success': validateMail, 'is-danger': !validateMail}"
+        >
         <span class="icon is-small is-left">
           <font-awesome-icon icon="envelope"/>
         </span>
@@ -36,7 +54,13 @@
     </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input class="input" type="password" placeholder="密码" v-model="pass">
+        <input
+          class="input"
+          type="password"
+          placeholder="密码"
+          v-model="pass"
+          :class="{'is-success': validatePass, 'is-danger': !validatePass}"
+        >
         <span class="icon is-small is-left">
           <font-awesome-icon icon="lock"/>
         </span>
@@ -47,7 +71,13 @@
     </div>
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input class="input" type="password" placeholder="重复密码" v-model="passRepeat">
+        <input
+          class="input"
+          type="password"
+          placeholder="重复密码"
+          v-model="passRepeat"
+          :class="{'is-success': validatePassMatch, 'is-danger': !validatePassMatch}"
+        >
         <span class="icon is-small is-left">
           <font-awesome-icon icon="user-lock"/>
         </span>

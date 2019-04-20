@@ -31,13 +31,22 @@ export class User {
     Me(callback: (resp: AxiosResponse) => void) {
         get("/user/me", callback);
     }
+
+    AlterMe(nick: string, oldPass: string, newPass: string, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("nickname", nick);
+        params.append("oldPassword", oldPass);
+        params.append("newPassword", newPass);
+
+        patch("/user", params, callback);
+    }
 }
 
-function post(path: string, form: any, callback: (resp: AxiosResponse) => void, config?: any) {
+function post(path: string, form: URLSearchParams, callback: (resp: AxiosResponse) => void, config?: any) {
     axios.post(baseUrl + path, form, config).then(
         (resp) => { if (callback != null) callback(resp); }
     ).catch(
-        (resp) => { if (callback != null) callback(resp); }
+        (resp) => { if (callback != null) callback(resp.response); }
     );
 }
 
@@ -45,7 +54,7 @@ function get(path: string, callback: (resp: AxiosResponse) => void) {
     axios.get(baseUrl + path).then(
         (resp) => { if (callback != null) callback(resp); }
     ).catch(
-        (resp) => { if (callback != null) callback(resp); }
+        (resp) => { if (callback != null) callback(resp.response); }
     );
 }
 
@@ -53,6 +62,14 @@ function del(path: string, callback: (resp: AxiosResponse) => void) {
     axios.delete(baseUrl + path).then(
         (resp) => { if (callback != null) callback(resp); }
     ).catch(
+        (resp) => { if (callback != null) callback(resp.response); }
+    );
+}
+
+function patch(path: string, form: URLSearchParams, callback: (resp: AxiosResponse) => void) {
+    axios.patch(baseUrl + path, form).then(
         (resp) => { if (callback != null) callback(resp); }
+    ).catch(
+        (resp) => { if (callback != null) callback(resp.response); }
     );
 }

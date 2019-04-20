@@ -1,34 +1,34 @@
 <template>
-  <div class="container">
-    <div class="container main-content">
-      <div class="info-placeholder">
-        <nav class="navbar header" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
-            <a @click="home">
-              <img src="@/assets/logo.svg" class="logo">
-            </a>
-          </div>
-
-          <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-              <a
-                class="navbar-item"
-                v-for="(item, index) in nav"
-                :key="index"
-                :class="navIndex === index ? 'item-active' : ''"
-                @click="routerLink(index, item.path, item.abs)"
-              >{{ item.title }}</a>
-            </div>
-            <div class="navbar-end">
-              <navUser/>
-            </div>
-          </div>
-        </nav>
-        <div class="container" id="main-vp">
-          <router-view/>
+  <div class="container root-container">
+    <div class="main-content">
+      <nav class="navbar header" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a @click="home">
+            <img src="@/assets/logo.svg" class="logo">
+          </a>
         </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a
+              class="navbar-item"
+              v-for="(item, index) in nav"
+              :key="index"
+              :class="navIndex === index ? 'item-active' : ''"
+              @click="routerLink(index, item.path, item.abs)"
+            >{{ item.title }}</a>
+          </div>
+          <div class="navbar-end">
+            <navUser/>
+          </div>
+        </div>
+      </nav>
+      <div class="container" id="main-vp">
+        <router-view/>
       </div>
+      <div class="push"></div>
     </div>
+    <footer class="footer">Copyright &copy; 2019 Lotlab</footer>
   </div>
 </template>
 
@@ -62,7 +62,6 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 })
 export default class App extends Vue {
   nav = [
-    { title: "登录", path: "/login" },
     { title: "Swagger", path: "/swagger/", abs: true }
   ];
   navIndex = 0;
@@ -91,14 +90,27 @@ body {
 a:hover {
   color: #6591d8;
 }
+
+// sticky footer
+html,
+body,
+.root-container {
+  height: 100%;
+}
 .main-content {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  min-height: 100%;
+  margin-bottom: -50px;
 }
-.info-placeholder {
-  flex: 1;
+footer,
+.push {
+  height: 50px;
 }
+
+// footer style
+.footer {
+  padding: 1rem 1.5rem 1rem;
+}
+
 $header-height: 60px;
 .header {
   height: $header-height;
@@ -132,5 +144,9 @@ $logo-margin: 5px;
   height: $header-height - $logo-margin * 2;
   margin: $logo-margin;
   float: left;
+}
+
+#main-vp {
+  padding: 1rem;
 }
 </style>

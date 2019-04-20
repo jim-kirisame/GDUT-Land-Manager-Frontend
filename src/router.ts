@@ -28,24 +28,23 @@ export default new Router({
         meta: {
           title: "主页 - 土地调查管理系统"
         }
-      }/*,
+      },
       {
-        path: "/search",
-        name: "search",
-        component: () => import("./views/Search.vue"),
-        props: (route) => ({ query: route.query.q }),
+        path: "/user",
+        name: "user",
+        component: () => import("./views/user.vue"),
         meta: {
-          title: "搜索 - Touhou Music Library"
+          title: "我的信息"
         }
       },
       {
-        path: "/album/:id",
-        name: "album",
-        component: () => import("./views/Album.vue"),
+        path: "/user/:id",
+        name: "userSet",
+        component: () => import("./views/user.vue"),
         props: (route) => ({ id: route.params.id }),
         meta: {
           title: "专辑信息 - Touhou Music Library"
         }
-      }*/
+      }
     ]
 });
