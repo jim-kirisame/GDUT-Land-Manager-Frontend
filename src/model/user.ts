@@ -1,6 +1,7 @@
 import { User as UserAPI } from "./api";
 import Callback from "./generic";
 import Cookie from "js-cookie";
+import { TypedEvent } from "./event";
 
 export default class User {
     api: UserAPI = new UserAPI();
@@ -10,6 +11,7 @@ export default class User {
             Cookie.set("ACL", resp.type, { expires: 7 });
             Cookie.set("Name", resp.name, { expires: 7 });
             User.IsLogin = true;
+            User.OnLoginStatusChange.emit({});
             callback.onSuccess(resp);
         }, callback.onFail);
 
@@ -20,6 +22,7 @@ export default class User {
             Cookie.remove("ACL");
             Cookie.remove("Name");
             User.IsLogin = false;
+            User.OnLoginStatusChange.emit({});
             callback.onSuccess(resp);
         }, callback.onFail);
         this.api.Logout((p) => { cba.RespHandler(p); });
@@ -29,6 +32,8 @@ export default class User {
     }
 
     static IsLogin : boolean = Cookie.get("ACL") !== undefined;
+
+    static OnLoginStatusChange = new TypedEvent();
 
     static get ACL() {
         return Cookie.get("ACL");

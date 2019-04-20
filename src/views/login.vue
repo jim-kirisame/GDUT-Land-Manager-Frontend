@@ -89,6 +89,6 @@ export default class LoginPage extends Vue {
 #login-form {
   max-width: 400px;
   margin: auto;
-  margin-top: 25vh;
+  margin-top: 10vh;
 }
 </style>

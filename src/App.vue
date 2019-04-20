@@ -77,7 +77,7 @@ export default class App extends Vue {
   }
   home() {
     this.navIndex = -1;
-    this.$router.push("home");
+    this.$router.push({ name: "home" });
   }
 }
 </script>

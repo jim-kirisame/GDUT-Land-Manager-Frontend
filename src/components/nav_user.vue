@@ -23,7 +23,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import User from "../model/user";
-import Callback from '../model/generic';
+import Callback from "../model/generic";
 
 @Component
 export default class userNav extends Vue {
@@ -34,13 +34,26 @@ export default class userNav extends Vue {
     this.$router.push("login");
   }
   logout() {
-    new User().Logout(new Callback((a)=>{}, (a,b)=>{}));
+    new User().Logout(
+      new Callback(
+        a => {
+          this.$router.push({ name: "home" });
+        },
+        (a, b) => {}
+      )
+    );
   }
-  get logined() {
-    return User.IsLogin;
+
+  mounted() {
+    User.OnLoginStatusChange.on(this.onLoginStatusChange);
   }
-  get userName() {
-    return User.Name;
+
+  private onLoginStatusChange() {
+    this.logined = User.IsLogin;
+    this.userName = User.Name;
   }
+
+  logined = User.IsLogin;
+  userName = User.Name;
 }
 </script>
