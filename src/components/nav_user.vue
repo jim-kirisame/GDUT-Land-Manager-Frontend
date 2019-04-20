@@ -3,18 +3,21 @@
     <a class="navbar-link">{{userName}}</a>
 
     <div class="navbar-dropdown">
-      <a class="navbar-item" v-if="isAdmin">管理</a>
-      <a class="navbar-item" @click="userSetting">用户设置</a>
+      <p class="navbar-item">{{userACL}}</p>
+      <hr class="navbar-divider">
+      <a class="navbar-item" @click="jumpTo('tasks')" v-if="!isAdmin">我的任务</a>
+      <a class="navbar-item" @click="jumpTo('admin')" v-if="isAdmin">管理</a>
+      <a class="navbar-item" @click="jumpTo('user')">用户设置</a>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="logout">注销</a>
     </div>
   </div>
   <div class="navbar-item" v-else>
     <div class="buttons">
-      <a class="button is-primary" @click="register">
+      <a class="button is-primary" @click="jumpTo('register')">
         <strong>注册</strong>
       </a>
-      <a class="button is-light" @click="login">登录</a>
+      <a class="button is-light" @click="jumpTo('login')">登录</a>
     </div>
   </div>
 </template>
@@ -27,12 +30,11 @@ import Callback from "../model/generic";
 
 @Component
 export default class userNav extends Vue {
-  register() {
-    this.$router.push("register");
+
+  jumpTo(name: string) {
+    this.$router.push({ name: name });
   }
-  login() {
-    this.$router.push("login");
-  }
+
   logout() {
     new User().Logout(
       new Callback(
@@ -42,9 +44,6 @@ export default class userNav extends Vue {
         (a, b) => {}
       )
     );
-  }
-  userSetting() {
-    this.$router.push({ name: "user" });
   }
 
   mounted() {
@@ -61,6 +60,14 @@ export default class userNav extends Vue {
 
   get isAdmin() {
     return User.ACL === "0";
+  }
+  get userACL() {
+    let acl = User.ACL;
+    if (acl === "0") return "管理员";
+    if (acl === "1") return "普通用户";
+    if (acl === "2") return "公司用户";
+    if (acl === "3") return "监管用户";
+    return "未知用户";
   }
 }
 </script>

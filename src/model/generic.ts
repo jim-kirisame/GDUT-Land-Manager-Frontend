@@ -33,7 +33,6 @@ export default class Callback {
             } else {
                 this.Success(response.result);
             }
-            return;
         } else {
             console.log(resp);
             switch (resp.status) {

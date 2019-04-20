@@ -6,10 +6,12 @@
           <a @click="home">
             <img src="@/assets/logo.svg" class="logo">
           </a>
+          <p class="navbar-item">土地调查管理系统</p>
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
+          <div class="navbar-start"></div>
+          <div class="navbar-end">
             <a
               class="navbar-item"
               v-for="(item, index) in nav"
@@ -17,8 +19,6 @@
               :class="navIndex === index ? 'item-active' : ''"
               @click="routerLink(index, item.path, item.abs)"
             >{{ item.title }}</a>
-          </div>
-          <div class="navbar-end">
             <navUser/>
           </div>
         </div>
@@ -61,9 +61,7 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
   }
 })
 export default class App extends Vue {
-  nav = [
-    { title: "Swagger", path: "/swagger/", abs: true }
-  ];
+  nav = [{ title: "Swagger", path: "/swagger/", abs: true }];
   navIndex = 0;
 
   routerLink(index: number, path: string, abs: boolean) {
