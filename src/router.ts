@@ -30,8 +30,8 @@ export default new Router({
         }
       },
       {
-        path: "/user",
-        name: "user",
+        path: "/userSetting",
+        name: "userSetting",
         component: () => import("./views/userSetting.vue"),
         meta: {
           title: "我的信息"
@@ -42,6 +42,15 @@ export default new Router({
         name: "userInfo",
         component: () => import("./views/user.vue"),
         props: (route) => ({ id: route.params.id }),
+        meta: {
+          title: "用户信息"
+        }
+      },
+      {
+        path: "/user",
+        name: "userMe",
+        component: () => import("./views/user.vue"),
+        props: (route) => ({ id: 0 }),
         meta: {
           title: "用户信息"
         }

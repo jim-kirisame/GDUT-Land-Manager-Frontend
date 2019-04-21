@@ -48,7 +48,10 @@ export default class UserInfoPage extends Vue {
   @Prop() id!: number;
   @Watch("id")
   onIDChange(id: number) {
-    new User().GetUser(id, new Callback(this.onSuccess, this.onFail));
+    if (id == 0)
+      new User().GetMe(new Callback(this.onSuccess, this.onFail));
+    else
+      new User().GetUser(id, new Callback(this.onSuccess, this.onFail));
   }
 
   mounted() {

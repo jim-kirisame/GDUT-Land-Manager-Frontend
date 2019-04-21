@@ -3,11 +3,11 @@
     <a class="navbar-link">{{userName}}</a>
 
     <div class="navbar-dropdown">
-      <p class="navbar-item">{{userACL}}</p>
+      <a class="navbar-item" @click="jumpTo('userMe')">{{userACL}}</a>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="jumpTo('tasks')" v-if="!isAdmin">我的任务</a>
       <a class="navbar-item" @click="jumpTo('admin')" v-if="isAdmin">管理</a>
-      <a class="navbar-item" @click="jumpTo('user')">用户设置</a>
+      <a class="navbar-item" @click="jumpTo('userSetting')">用户设置</a>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="logout">注销</a>
     </div>
@@ -26,7 +26,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import User from "../model/user";
-import Callback from "../model/generic";
+import Callback, { UserUtils } from "../model/generic";
 
 @Component
 export default class userNav extends Vue {
@@ -62,11 +62,7 @@ export default class userNav extends Vue {
   }
   get userACL() {
     let acl = User.ACL;
-    if (acl === "0") return "管理员";
-    if (acl === "1") return "普通用户";
-    if (acl === "2") return "公司用户";
-    if (acl === "3") return "监管用户";
-    return "未知用户";
+    return UserUtils.typeStr(Number(acl));
   }
 }
 </script>
