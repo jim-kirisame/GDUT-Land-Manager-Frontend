@@ -73,7 +73,7 @@ export default new Router({
         }
       },
       {
-        path: "/task/add",
+        path: "/addTask",
         name: "addTask",
         component: () => import("./views/addTask.vue"),
         meta: {

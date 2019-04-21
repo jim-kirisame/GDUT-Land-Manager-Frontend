@@ -7,7 +7,9 @@ export class ResponseData {
 }
 
 export default class Callback {
-    constructor(public onSuccess: (resp: any) => void, public onFail: (code: number, message: string) => void) { }
+    constructor(public onSuccess: (resp: any) => void, public onFail: (code: number, message: string) => void) {
+        ;
+    }
 
     Fail(code: number, message: string) {
         if (this.onFail !== undefined) {
@@ -82,7 +84,7 @@ export class TaskInfo {
 
 export class TaskUtils {
     static dateStr(ts: number) {
-        let d = new Date(ts);
+        let d = new Date(ts * 1000);
         return (
             d.getFullYear().toString() +
             "-" +
