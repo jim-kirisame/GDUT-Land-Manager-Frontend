@@ -77,7 +77,7 @@ export class TaskInfo {
     createAt: number = 0;
     updateAt: number = 0;
     finishAt?: number;
-    status: TaskStatus = 0;
+    status: number = 0;
 }
 
 export class TaskUtils {
@@ -121,9 +121,19 @@ export class TaskUtils {
     }
 }
 
-export enum TaskStatus {
-    "新建",
-    "进行中",
-    "交付审核",
-    "已完成"
+export class UserUtils {
+    static typeStr(type: number) {
+        switch (type) {
+            case 0:
+                return "管理员";
+            case 1:
+                return "用户";
+            case 2:
+                return "企业";
+            case 3:
+                return "监管部门";
+            default:
+                return "未知";
+        }
+    }
 }

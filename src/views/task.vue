@@ -14,7 +14,7 @@
         </span>
         <span>{{taskType}}</span>
       </span>
-      <a class="tag is-info" @click="jumpToUser(task.assigner.id)">
+      <a class="tag is-info" @click="jumpToUser(task.assigner.uid)">
         <span class="icon">
           <font-awesome-icon icon="user-tie"/>
         </span>
@@ -23,7 +23,7 @@
       <a
         class="tag is-info"
         v-if="task.assignee !== undefined"
-        @click="jumpToUser(task.assignee.id)"
+        @click="jumpToUser(task.assignee.uid)"
       >
         <span class="icon">
           <font-awesome-icon icon="user"/>
