@@ -47,12 +47,35 @@ import {
   faCheck,
   faCode,
   faUser,
-  faUserLock
+  faUserLock,
+  faTimes,
+  faCapsules,
+  faBook,
+  faTasks,
+  faClock,
+  faUserClock,
+  faUserTie,
+  faHistory
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import userNav from "./components/nav_user.vue";
 
-library.add(faCoffee, faEnvelope, faLock, faCheck, faCode, faUser, faUserLock);
+library.add(
+  faCoffee,
+  faEnvelope,
+  faLock,
+  faCheck,
+  faCode,
+  faUser,
+  faUserLock,
+  faHistory,
+  faCapsules,
+  faBook,
+  faTasks,
+  faClock,
+  faUserClock,
+  faUserTie,
+);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 @Component({

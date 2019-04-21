@@ -48,3 +48,82 @@ export default class Callback {
         }
     }
 }
+
+export class UserInfo {
+    "uid": number;
+    "name": string;
+    "mail": string;
+    "type": number;
+    "status": number;
+    "group"?: GroupInfo;
+}
+
+export class GroupInfo {
+    "name": string;
+    "mail": string;
+    "uid": number;
+    "users"?: Array<UserInfo>;
+}
+
+export class TaskInfo {
+    taskID: number = 0;
+    title: string = "";
+    taskType: number = 0;
+    assigner = new UserInfo();
+    assignee?: UserInfo;
+    description: string = "";
+    result?: null;
+    resource?: null;
+    createAt: number = 0;
+    updateAt: number = 0;
+    finishAt?: number;
+    status: TaskStatus = 0;
+}
+
+export class TaskUtils {
+    static dateStr(ts: number) {
+        let d = new Date(ts);
+        return (
+            d.getFullYear().toString() +
+            "-" +
+            (d.getMonth() + 1).toString() +
+            "-" +
+            d.getDate().toString()
+        );
+    }
+
+    static statusStr(s: number) {
+        switch (s) {
+            case 0:
+                return "新建";
+            case 1:
+                return "进行中";
+            case 2:
+                return "待审核";
+            case 3:
+                return "已完成";
+            default:
+                return "未知状态";
+        }
+    }
+
+    static typeStr(s: number) {
+        switch (s) {
+            case 0:
+                return "初步调查";
+            case 1:
+                return "布点";
+            case 2:
+                return "采样";
+            default:
+                return "未知";
+        }
+    }
+}
+
+export enum TaskStatus {
+    "新建",
+    "进行中",
+    "交付审核",
+    "已完成"
+}

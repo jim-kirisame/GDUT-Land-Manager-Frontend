@@ -30,7 +30,6 @@ import Callback from "../model/generic";
 
 @Component
 export default class userNav extends Vue {
-
   jumpTo(name: string) {
     this.$router.push({ name: name });
   }

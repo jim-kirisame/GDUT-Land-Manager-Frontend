@@ -90,7 +90,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import User from "../model/user";
 import Callback from "../model/generic";
-import Notification from '../components/notification.vue';
+import Notification from "../components/notification.vue";
 
 @Component({
     components: {

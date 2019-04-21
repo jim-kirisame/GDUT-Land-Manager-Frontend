@@ -32,18 +32,35 @@ export default new Router({
       {
         path: "/user",
         name: "user",
-        component: () => import("./views/user.vue"),
+        component: () => import("./views/userSetting.vue"),
         meta: {
           title: "我的信息"
         }
       },
       {
         path: "/user/:id",
-        name: "userSet",
+        name: "userInfo",
         component: () => import("./views/user.vue"),
         props: (route) => ({ id: route.params.id }),
         meta: {
-          title: "专辑信息 - Touhou Music Library"
+          title: "用户信息"
+        }
+      },
+      {
+        path: "/task",
+        name: "tasks",
+        component: () => import("./views/tasks.vue"),
+        meta: {
+          title: "任务列表"
+        }
+      },
+      {
+        path: "/task/:id",
+        name: "task",
+        component: () => import("./views/task.vue"),
+        props: (route) => ({ id: route.params.id }),
+        meta: {
+          title: "任务信息"
         }
       }
     ]
