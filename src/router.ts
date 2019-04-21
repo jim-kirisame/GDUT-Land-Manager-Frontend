@@ -71,6 +71,14 @@ export default new Router({
         meta: {
           title: "任务信息"
         }
+      },
+      {
+        path: "/task/add",
+        name: "addTask",
+        component: () => import("./views/addTask.vue"),
+        meta: {
+          title: "新建任务"
+        }
       }
     ]
 });

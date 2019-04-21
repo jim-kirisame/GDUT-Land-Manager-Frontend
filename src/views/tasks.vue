@@ -1,5 +1,13 @@
 <template>
   <div class="tasks">
+    <div class="button-group is-clearfix" v-if="addAble">
+      <a class="button is-primary is-pulled-right" @click="addTask">
+        <span class="icon">
+          <font-awesome-icon icon="plus"/>
+        </span>
+        <span>添加任务</span>
+      </a>
+    </div>
     <taskTable :tasks="searchResult"/>
     <notify :msg="message" level="is-danger" @clear="clear"/>
   </div>
@@ -44,8 +52,22 @@ export default class Tasks extends Vue {
   clear() {
     this.message = "";
   }
+
+  addTask() {
+    this.$router.push({ name: "addTask" });
+  }
+
+  get addAble() {
+    return User.ACL === "3";
+  }
 }
 </script>
 
 <style lang="scss">
+.button-group {
+  display: block;
+}
+.task-table {
+  padding: 1em;
+}
 </style>

@@ -56,7 +56,8 @@ import {
   faUserClock,
   faUserTie,
   faHistory,
-  faBuilding
+  faBuilding,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import userNav from "./components/nav_user.vue";
@@ -76,7 +77,8 @@ library.add(
   faClock,
   faUserClock,
   faUserTie,
-  faBuilding
+  faBuilding,
+  faPlus
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

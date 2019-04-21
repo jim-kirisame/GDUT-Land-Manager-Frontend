@@ -5,8 +5,8 @@
       <div class="column is-1">状态</div>
       <div class="column is-1">任务类型</div>
       <div class="column is-3">名称</div>
-      <div class="column is-4">描述</div>
-      <div class="column is-1">发布人</div>
+      <div class="column is-3">描述</div>
+      <div class="column is-2">发布人</div>
       <div class="column is-1">更新日期</div>
     </div>
     <a
@@ -20,8 +20,8 @@
       <div class="column is-1">{{statusStr(item.status)}}</div>
       <div class="column is-1">{{typeStr(item.taskType)}}</div>
       <div class="column is-3">{{item.title}}</div>
-      <div class="column is-4">{{item.description}}</div>
-      <div class="column is-1">{{item.assigner.name}}</div>
+      <div class="column is-3">{{item.description}}</div>
+      <div class="column is-2">{{item.assigner.name}}</div>
       <div class="column is-1">{{dateStr(item.updateAt)}}</div>
     </a>
     <div v-if="tasks.length == 0">任务空空如也，快去添加一些吧！</div>
@@ -56,7 +56,7 @@ export default class TaskTable extends Vue {
 
 <style lang="scss" scoped>
 .task-table {
-  margin: 20px;
+  clear: both;
   font-size: 14px;
   .task-header {
     border-bottom: 1px solid #999;
