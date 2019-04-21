@@ -61,6 +61,7 @@ export default class UserInfoPage extends Vue {
     this.clear();
   }
   onFail(code: number, msg: string) {
+    this.user = new UserInfo();
     this.message = msg;
   }
 
