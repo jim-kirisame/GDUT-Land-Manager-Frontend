@@ -4,9 +4,9 @@ export var baseUrl = "https://land.bigkeer.cn/api";
 // export var baseUrl = "http://localhost:2882/api";
 
 axios.defaults.withCredentials = true;
-export class User {
+export class UserAPI {
     // 用户登录
-    Login(user: string, password: string, captcha: string, callback: (resp: AxiosResponse) => void): void {
+    static Login(user: string, password: string, captcha: string, callback: (resp: AxiosResponse) => void): void {
         const params = new URLSearchParams();
         params.append("user", user);
         params.append("password", password);
@@ -14,11 +14,11 @@ export class User {
         post("/session", params, callback, { headers: { "x-captcha": captcha } });
     }
 
-    Logout(callback: (resp: AxiosResponse) => void) {
+    static Logout(callback: (resp: AxiosResponse) => void) {
         del("/session", callback);
     }
 
-    Register(user: string, password: string, mail: string, nick: string, captcha: string, callback: (resp: AxiosResponse) => void) {
+    static Register(user: string, password: string, mail: string, nick: string, captcha: string, callback: (resp: AxiosResponse) => void) {
         const params = new URLSearchParams();
         params.append("UserName", user);
         params.append("Password", password);
@@ -28,17 +28,33 @@ export class User {
         post("/user", params, callback, { headers: { "x-captcha": captcha } });
     }
 
-    Me(callback: (resp: AxiosResponse) => void) {
+    static Me(callback: (resp: AxiosResponse) => void) {
         get("/user/me", callback);
     }
 
-    AlterMe(nick: string, oldPass: string, newPass: string, callback: (resp: AxiosResponse) => void) {
+    static AlterMe(nick: string, oldPass: string, newPass: string, callback: (resp: AxiosResponse) => void) {
         const params = new URLSearchParams();
         params.append("nickname", nick);
         params.append("oldPassword", oldPass);
         params.append("newPassword", newPass);
 
         patch("/user", params, callback);
+    }
+
+    static GetUser(id: number, callback: (resp: AxiosResponse) => void) {
+        get("/user/" + id, callback);
+    }
+}
+
+export class TaskAPI {
+    static GetSelf(callback: (resp: AxiosResponse) => void) {
+        get("/Task", callback);
+    }
+    static GetSelfAssign(callback: (resp: AxiosResponse) => void) {
+        get("/Assign/task/active", callback);
+    }
+    static GetTask(id: number, callback: (resp: AxiosResponse) => void) {
+        get("/Task/" + id, callback);
     }
 }
 

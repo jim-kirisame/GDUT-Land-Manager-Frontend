@@ -1,6 +1,7 @@
 <template>
   <div class="tasks">
     <taskTable :tasks="searchResult"/>
+    <notify :msg="message" level="is-danger" @clear="clear"/>
   </div>
 </template>
 
@@ -8,48 +9,41 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import TaskTable from "../components/taskTable.vue";
-import { TaskInfo, UserInfo } from "../model/generic";
+import Callback, { TaskInfo, UserInfo } from "../model/generic";
+import User from "../model/user";
+import Task from "../model/task";
+import Notification from "../components/notification.vue";
 
 @Component({
   components: {
-    taskTable: TaskTable
+    taskTable: TaskTable,
+    notify: Notification
   }
 })
 export default class Tasks extends Vue {
-  searchResult: Array<TaskInfo> = [
-    {
-      taskID: 0,
-      title: "测试数据。标题",
-      taskType: 0,
-      description: "测试数据，描述",
-      updateAt: 0,
-      status: 0,
-      createAt: 0,
-      assigner: {
-        uid: 0,
-        name: "测试人",
-        mail: "asd",
-        type: 3,
-        status: 0
-      }
-    },
-    {
-      taskID: 1,
-      title: "测试标题",
-      taskType: 1,
-      description: "测试描述。这个描述应该会非常非常非常非常非常的长长长长长长长长长长",
-      updateAt: 2,
-      status: 1,
-      createAt: 0,
-      assigner: {
-        uid: 0,
-        name: "测试人",
-        mail: "asd",
-        type: 3,
-        status: 0
-      }
-    }
-  ];
+  searchResult: Array<TaskInfo> = [];
+
+  message: string = "";
+
+  mounted() {
+    this.reload();
+  }
+
+  reload() {
+    let acl = Number(User.ACL);
+    new Task().GetSelf(acl, new Callback(this.onSuccess, this.onFail));
+  }
+
+  onSuccess(data: any) {
+    this.searchResult = data.data;
+    this.clear();
+  }
+  onFail(code: number, msg: string) {
+    this.message = msg;
+  }
+  clear() {
+    this.message = "";
+  }
 }
 </script>
 

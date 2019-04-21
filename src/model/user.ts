@@ -1,11 +1,9 @@
-import { User as UserAPI } from "./api";
+import { UserAPI } from "./api";
 import Callback from "./generic";
 import Cookie from "js-cookie";
 import { TypedEvent } from "./event";
 
 export default class User {
-    api: UserAPI = new UserAPI();
-
     Login(user: string, pass: string, captcha: string, callback: Callback) {
         let cba = new Callback((resp) => {
             Cookie.set("ACL", resp.type, { expires: 7 });
@@ -15,7 +13,7 @@ export default class User {
             callback.onSuccess(resp);
         }, callback.onFail);
 
-        this.api.Login(user, pass, captcha, (p) => { cba.RespHandler(p); });
+        UserAPI.Login(user, pass, captcha, (p) => { cba.RespHandler(p); });
     }
     Logout(callback: Callback) {
         let cba = new Callback((resp) => {
@@ -25,10 +23,10 @@ export default class User {
             User.OnLoginStatusChange.emit({});
             callback.onSuccess(resp);
         }, callback.onFail);
-        this.api.Logout((p) => { cba.RespHandler(p); });
+        UserAPI.Logout((p) => { cba.RespHandler(p); });
     }
     Register(user: string, password: string, mail: string, nick: string, captcha: string, callback: Callback) {
-        this.api.Register(user, password, mail, nick, captcha, (p) => { callback.RespHandler(p); });
+        UserAPI.Register(user, password, mail, nick, captcha, (p) => { callback.RespHandler(p); });
     }
 
     static IsLogin: boolean = Cookie.get("ACL") !== undefined;
@@ -49,10 +47,14 @@ export default class User {
             User.OnLoginStatusChange.emit({});
             callback.onSuccess(resp);
         }, callback.onFail);
-        this.api.Me((p) => { cba.RespHandler(p); });
+        UserAPI.Me((p) => { cba.RespHandler(p); });
     }
 
     AlterMe(nick: string, oldPass: string, newPass: string, callback: Callback) {
-        this.api.AlterMe(nick, oldPass, newPass, (p) => { callback.RespHandler(p); });
+        UserAPI.AlterMe(nick, oldPass, newPass, (p) => { callback.RespHandler(p); });
+    }
+
+    GetUser(id: number, callback: Callback) {
+        UserAPI.GetUser(id, (p) => { callback.RespHandler(p); });
     }
 }
