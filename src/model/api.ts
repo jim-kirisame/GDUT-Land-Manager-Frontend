@@ -60,6 +60,26 @@ export class TaskAPI {
     static GetTask(id: number, callback: (resp: AxiosResponse) => void) {
         get("/Task/" + id, callback);
     }
+    static Create(title: string, description: string, taskType: number, resource: number, assignee: number, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("title", title);
+        params.append("description", description);
+        params.append("taskType", taskType.toString());
+        params.append("resource", resource.toString());
+        params.append("assignee", assignee.toString());
+
+        post("/Task", params, callback);
+    }
+    static Alter(taskID: number, title: string, description: string, taskType: number, resource: number, assignee: number, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("title", title);
+        params.append("description", description);
+        params.append("taskType", taskType.toString());
+        params.append("resource", resource.toString());
+        params.append("assignee", assignee.toString());
+
+        put("/Task/" + taskID.toString(), params, callback);
+    }
 }
 
 export class GroupAPI {
@@ -94,6 +114,14 @@ function del(path: string, callback: (resp: AxiosResponse) => void) {
 
 function patch(path: string, form: URLSearchParams, callback: (resp: AxiosResponse) => void) {
     axios.patch(baseUrl + path, form).then(
+        (resp) => { if (callback != null) callback(resp); }
+    ).catch(
+        (resp) => { if (callback != null) callback(resp.response); }
+    );
+}
+
+function put(path: string, form: URLSearchParams, callback: (resp: AxiosResponse) => void) {
+    axios.put(baseUrl + path, form).then(
         (resp) => { if (callback != null) callback(resp); }
     ).catch(
         (resp) => { if (callback != null) callback(resp.response); }

@@ -76,8 +76,8 @@ export class TaskInfo {
     assigner = new UserInfo();
     assignee?: UserInfo;
     description: string = "";
-    result?: null;
-    resource?: null;
+    result?: any;
+    resource?: any;
     createAt: number = 0;
     updateAt: number = 0;
     finishAt?: number;

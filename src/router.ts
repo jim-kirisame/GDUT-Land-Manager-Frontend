@@ -8,7 +8,7 @@ export default new Router({
       {
         path: "/login",
         name: "login",
-        component: () => import("./views/login.vue"),
+        component: () => import(/* webpackChunkName: "basic" */ "./views/login.vue"),
         meta: {
           title: "登录"
         }
@@ -16,7 +16,7 @@ export default new Router({
       {
         path: "/register",
         name: "register",
-        component: () => import("./views/register.vue"),
+        component: () => import(/* webpackChunkName: "basic" */ "./views/register.vue"),
         meta: {
           title: "注册"
         }
@@ -24,7 +24,7 @@ export default new Router({
       {
         path: "/",
         name: "home",
-        component: () => import("./views/home.vue"),
+        component: () => import(/* webpackChunkName: "basic" */ "./views/home.vue"),
         meta: {
           title: "主页 - 土地调查管理系统"
         }
@@ -32,7 +32,7 @@ export default new Router({
       {
         path: "/userSetting",
         name: "userSetting",
-        component: () => import("./views/userSetting.vue"),
+        component: () => import(/* webpackChunkName: "user" */ "./views/userSetting.vue"),
         meta: {
           title: "我的信息"
         }
@@ -40,7 +40,7 @@ export default new Router({
       {
         path: "/user/:id",
         name: "userInfo",
-        component: () => import("./views/user.vue"),
+        component: () => import(/* webpackChunkName: "user" */ "./views/user.vue"),
         props: (route) => ({ id: route.params.id }),
         meta: {
           title: "用户信息"
@@ -49,7 +49,7 @@ export default new Router({
       {
         path: "/user",
         name: "userMe",
-        component: () => import("./views/user.vue"),
+        component: () => import(/* webpackChunkName: "user" */ "./views/user.vue"),
         props: (route) => ({ id: 0 }),
         meta: {
           title: "用户信息"
@@ -58,7 +58,7 @@ export default new Router({
       {
         path: "/task",
         name: "tasks",
-        component: () => import("./views/tasks.vue"),
+        component: () => import(/* webpackChunkName: "task" */ "./views/tasks.vue"),
         meta: {
           title: "任务列表"
         }
@@ -66,7 +66,7 @@ export default new Router({
       {
         path: "/task/:id",
         name: "task",
-        component: () => import("./views/task.vue"),
+        component: () => import(/* webpackChunkName: "task" */ "./views/task.vue"),
         props: (route) => ({ id: route.params.id }),
         meta: {
           title: "任务信息"
@@ -75,7 +75,7 @@ export default new Router({
       {
         path: "/addTask",
         name: "addTask",
-        component: () => import("./views/addTask.vue"),
+        component: () => import(/* webpackChunkName: "task" */ "./views/addTask.vue"),
         meta: {
           title: "新建任务"
         }
