@@ -75,9 +75,19 @@ export default new Router({
       {
         path: "/addTask",
         name: "addTask",
-        component: () => import(/* webpackChunkName: "task" */ "./views/addTask.vue"),
+        component: () => import(/* webpackChunkName: "task" */ "./views/editTask.vue"),
+        props: (route) => ({ id: 0 }),
         meta: {
           title: "新建任务"
+        }
+      },
+      {
+        path: "/task/:id/edit",
+        name: "editTask",
+        component: () => import(/* webpackChunkName: "task" */ "./views/editTask.vue"),
+        props: (route) => ({ id: route.params.id }),
+        meta: {
+          title: "编辑任务"
         }
       }
     ]

@@ -8,6 +8,7 @@ export default class User {
         let cba = new Callback((resp) => {
             Cookie.set("ACL", resp.type, { expires: 7 });
             Cookie.set("Name", resp.name, { expires: 7 });
+            Cookie.set("UID", resp.uid, { expires: 7 });
             User.IsLogin = true;
             User.OnLoginStatusChange.emit({});
             callback.onSuccess(resp);
@@ -29,6 +30,7 @@ export default class User {
     static OnLogout() {
         Cookie.remove("ACL");
         Cookie.remove("Name");
+        Cookie.remove("UID");
         User.IsLogin = false;
         User.OnLoginStatusChange.emit({});
     }
@@ -42,6 +44,9 @@ export default class User {
     }
     static get Name() {
         return Cookie.get("Name");
+    }
+    static get UID() {
+        return Number(Cookie.get("UID"));
     }
 
     GetMe(callback: Callback) {

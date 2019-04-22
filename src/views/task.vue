@@ -1,7 +1,20 @@
 <template>
   <div>
     <div class="box" v-if="task.taskID > 0">
-      <h1 class="title">{{task.title}}</h1>
+      <div class="columns">
+        <div class="column is-four-fifths">
+          <h1 class="title">{{task.title}}</h1>
+        </div>
+        <div class="column" v-if="editable">
+          <a class="button is-primary is-pulled-right" @click="editTask">
+            <span class="icon">
+              <font-awesome-icon icon="edit"/>
+            </span>
+            <span>编辑详情</span>
+          </a>
+        </div>
+      </div>
+
       <div class="tags">
         <span class="tag is-info">
           <span class="icon">
@@ -64,6 +77,7 @@ import TaskTable from "../components/taskTable.vue";
 import Callback, { TaskInfo, UserInfo, TaskUtils } from "../model/generic";
 import Task from "../model/task";
 import Notification from "../components/notification.vue";
+import User from "../model/user";
 
 @Component({
   components: {
@@ -87,6 +101,15 @@ export default class TaskPage extends Vue {
   onSuccess(resp: any) {
     this.task = resp;
     this.clear();
+    this.editable = this.task.assigner.uid === User.UID;
+  }
+
+  editable = false;
+  editTask() {
+    this.$router.push({
+      name: "editTask",
+      params: { id: this.task.taskID.toString() }
+    });
   }
 
   onFail(code: number, msg: string) {

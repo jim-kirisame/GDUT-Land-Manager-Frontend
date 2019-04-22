@@ -36,8 +36,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 任务相关
 
-- 任务新建
-- （监管部门）任务修改
+- ~~任务新建~~
+- ~~（监管部门）任务修改~~
 - 任务状态更新
 - （企业）任务指派
 - 任务结果的显示

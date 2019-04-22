@@ -8,6 +8,7 @@
         :value="textInput"
         @input="onInput($event.target.value)"
         :class="{'is-success': savedUser.uid>0}"
+        :disabled="disabled"
       >
       <div class="search-result box" id="search-result" v-if="users.length > 0">
         <ul>
@@ -38,14 +39,26 @@ export default class singleInput extends Vue {
   @Prop()
   value!: UserInfo;
 
+  @Prop()
+  disabled!: boolean;
+
   @Watch("value")
-  watchVal(newVal: UserInfo, oldVal: UserInfo) {
-    this.savedUser = newVal;
+  watchVal(newVal: UserInfo) {
+    if (newVal !== undefined) {
+      this.savedUser = newVal;
+      if (this.savedUser.name !== "") {
+        this.textInput = this.savedUser.name;
+      }
+    }
+  }
+
+  mounted() {
+    this.watchVal(this.value);
   }
 
   onInput(text: string) {
     this.textInput = text;
-    this.setUser(new UserInfo());
+    if (this.savedUser.uid > 0) this.setUser(new UserInfo());
 
     this.reload();
   }
@@ -58,8 +71,10 @@ export default class singleInput extends Vue {
   }
 
   setUser(user: UserInfo) {
-    this.savedUser = user;
-    this.$emit("input", this.savedUser);
+    if (this.savedUser != user) {
+      this.savedUser = user;
+      this.$emit("input", this.savedUser);
+    }
   }
 
   reload() {

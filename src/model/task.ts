@@ -18,24 +18,28 @@ export default class Task {
 
     CreateTask(task: TaskInfo, callback: Callback) {
         let assignee = task.assignee === undefined ? 0 : task.assignee.uid;
-        if (assignee === 0)
+        if (assignee === 0) {
             assignee = -1;
+        }
 
-        let resource = task.resource === undefined ? 0 : task.resource.id === undefined ? 0 : task.resource.id;
-        if (resource === 0)
+        let resource = task.resource ===  (undefined || null) ? 0 : task.resource.id ===  (undefined || null) ? 0 : task.resource.id;
+        if (resource === 0) {
             resource = -1;
+        }
 
         TaskAPI.Create(task.title, task.description, task.taskType, resource, assignee, (p) => { callback.RespHandler(p); });
     }
 
     AlterTask(task: TaskInfo, callback: Callback) {
-        let assignee = task.assignee === undefined ? 0 : task.assignee.uid;
-        if (assignee === 0)
+        let assignee = task.assignee ===  undefined  ? 0 : task.assignee.uid;
+        if (assignee === 0) {
             assignee = -1;
+        }
 
-        let resource = task.resource === undefined ? 0 : task.resource.id === undefined ? 0 : task.resource.id;
-        if (resource === 0)
+        let resource = task.resource === (undefined || null) ? 0 : task.resource.id ===  (undefined || null) ? 0 : task.resource.id;
+        if (resource === 0) {
             resource = -1;
+        }
 
         TaskAPI.Alter(task.taskID, task.title, task.description, task.taskType, resource, assignee, (p) => { callback.RespHandler(p); });
     }
