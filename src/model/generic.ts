@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import User from "./user";
 
 export class ResponseData {
     code: number = 0;
@@ -40,6 +41,7 @@ export default class Callback {
             switch (resp.status) {
                 case 401:
                     this.Fail(401, "用户需要登录");
+                    User.OnLogout();
                     break;
                 case 403:
                     this.Fail(403, "当前用户没有权限操作此项目");

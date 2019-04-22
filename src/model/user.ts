@@ -17,16 +17,20 @@ export default class User {
     }
     Logout(callback: Callback) {
         let cba = new Callback((resp) => {
-            Cookie.remove("ACL");
-            Cookie.remove("Name");
-            User.IsLogin = false;
-            User.OnLoginStatusChange.emit({});
+            User.OnLogout();
             callback.onSuccess(resp);
         }, callback.onFail);
         UserAPI.Logout((p) => { cba.RespHandler(p); });
     }
     Register(user: string, password: string, mail: string, nick: string, captcha: string, callback: Callback) {
         UserAPI.Register(user, password, mail, nick, captcha, (p) => { callback.RespHandler(p); });
+    }
+
+    static OnLogout() {
+        Cookie.remove("ACL");
+        Cookie.remove("Name");
+        User.IsLogin = false;
+        User.OnLoginStatusChange.emit({});
     }
 
     static IsLogin: boolean = Cookie.get("ACL") !== undefined;
@@ -56,5 +60,9 @@ export default class User {
 
     GetUser(id: number, callback: Callback) {
         UserAPI.GetUser(id, (p) => { callback.RespHandler(p); });
+    }
+
+    SearchGroup(name: string, callback: Callback) {
+        UserAPI.SearchUser(name, "group", (p) => { callback.RespHandler(p); });
     }
 }

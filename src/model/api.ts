@@ -44,6 +44,10 @@ export class UserAPI {
     static GetUser(id: number, callback: (resp: AxiosResponse) => void) {
         get("/user/" + id, callback);
     }
+
+    static SearchUser(name: string, type: string, callback: (resp: AxiosResponse) => void) {
+        get("/User/search/" + name + "?type=" + type, callback);
+    }
 }
 
 export class TaskAPI {
@@ -55,6 +59,12 @@ export class TaskAPI {
     }
     static GetTask(id: number, callback: (resp: AxiosResponse) => void) {
         get("/Task/" + id, callback);
+    }
+}
+
+export class GroupAPI {
+    static GetSelf(callback: (resp: AxiosResponse) => void) {
+        get("/UserGroup", callback);
     }
 }
 
