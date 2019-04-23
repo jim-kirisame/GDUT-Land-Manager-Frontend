@@ -70,4 +70,8 @@ export default class User {
     SearchGroup(name: string, callback: Callback) {
         UserAPI.SearchUser(name, "group", (p) => { callback.RespHandler(p); });
     }
+
+    SearchUser(name: string, callback: Callback) {
+        UserAPI.SearchUser(name, "user", (p) => { callback.RespHandler(p); });
+    }
 }

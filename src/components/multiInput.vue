@@ -4,7 +4,7 @@
       <div class="control tags are-medium added-tag" v-if="savedUser.length > 0">
         <span class="tag" v-for="(item, index) in savedUser" :key="index">
           {{item.name}}
-          <button class="delete is-small" @click="delUser(index)"></button>
+          <button class="delete is-small" @click="delUser(index)" :disabled="disabled"></button>
         </span>
       </div>
       <div class="control is-expanded">
@@ -14,6 +14,7 @@
           placeholder="搜索……"
           :value="textInput"
           @input="onInput($event.target.value)"
+          :disabled="disabled"
         >
         <div class="search-result box" id="search-result" v-if="searchUser.length > 0">
           <ul>
@@ -38,12 +39,15 @@ import UserGroup from "../model/userGroup";
 @Component
 export default class multiInput extends Vue {
   @Prop()
-  inputUser: UserInfo[] = [];
+  inputUser!: UserInfo[];
 
   searchUser: UserInfo[] = [];
 
   textInput: string = "";
   savedUser: UserInfo[] = [];
+
+  @Prop()
+  disabled!: boolean;
 
   @Prop()
   value!: UserInfo[];
@@ -52,7 +56,7 @@ export default class multiInput extends Vue {
   watchVal(newVal: UserInfo[], oldVal: UserInfo[]) {
     this.savedUser = newVal;
     // 更新内容后去重
-    this.setSearchUser(this.savedUser);
+    this.setSearchUser(this.searchUser);
   }
 
   @Watch("inputUser")
@@ -63,7 +67,7 @@ export default class multiInput extends Vue {
 
   onInput(text: string) {
     this.textInput = text;
-    this.$emit("onInput");
+    this.$emit("onInput", text);
   }
 
   // 添加一个
@@ -84,17 +88,17 @@ export default class multiInput extends Vue {
 
   // 去重
   setSearchUser(user: UserInfo[]) {
-    let n: UserInfo[] = [];
-    this.searchUser.forEach(element => {
+    this.searchUser = [];
+    user.forEach(element => {
       let hasKey = false;
       this.savedUser.forEach(a => {
         if (a.uid === element.uid) {
           hasKey = true;
         }
       });
-      if (!hasKey) n.push(element);
+      if (!hasKey) this.searchUser.push(element);
+      else console.log("wtf");
     });
-    this.searchUser = n;
   }
 }
 </script>

@@ -38,8 +38,13 @@ export default class Tasks extends Vue {
   }
 
   reload() {
-    let acl = Number(User.ACL);
-    new Task().GetSelf(acl, new Callback(this.onSuccess, this.onFail));
+    let aclStr = User.ACL;
+    if (aclStr !== undefined) {
+      let acl = Number(User.ACL);
+      new Task().GetSelf(acl, new Callback(this.onSuccess, this.onFail));
+    } else {
+      this.$router.push({ name: "login" });
+    }
   }
 
   onSuccess(data: any) {

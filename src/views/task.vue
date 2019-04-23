@@ -10,7 +10,7 @@
             <span class="icon">
               <font-awesome-icon icon="edit"/>
             </span>
-            <span>编辑详情</span>
+            <span>编辑</span>
           </a>
         </div>
       </div>
@@ -101,7 +101,7 @@ export default class TaskPage extends Vue {
   onSuccess(resp: any) {
     this.task = resp;
     this.clear();
-    this.editable = this.task.assigner.uid === User.UID;
+    this.editable = this.task.assigner.uid === User.UID || (this.task.assignee !== undefined && this.task.assignee.uid === User.UID);
   }
 
   editable = false;

@@ -29,6 +29,12 @@ export default class Callback {
             console.log("resp undefined");
         }
 
+        if (resp.status == 401) {
+            User.OnLogout();
+            this.Fail(401, "用户需要登录");
+            return;
+        }
+
         let response = resp.data as ResponseData;
         if (response !== undefined) {
             if (response.code !== 0) {
@@ -37,12 +43,7 @@ export default class Callback {
                 this.Success(response.result);
             }
         } else {
-            console.log(resp);
             switch (resp.status) {
-                case 401:
-                    this.Fail(401, "用户需要登录");
-                    User.OnLogout();
-                    break;
                 case 403:
                     this.Fail(403, "当前用户没有权限操作此项目");
                     break;

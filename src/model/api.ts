@@ -51,15 +51,19 @@ export class UserAPI {
 }
 
 export class TaskAPI {
+    // 获取自己名下的任务信息
     static GetSelf(callback: (resp: AxiosResponse) => void) {
         get("/Task", callback);
     }
+    // 获取自己活动的任务信息
     static GetSelfAssign(callback: (resp: AxiosResponse) => void) {
         get("/Assign/task/active", callback);
     }
+    // 获取指定id的任务信息
     static GetTask(id: number, callback: (resp: AxiosResponse) => void) {
         get("/Task/" + id, callback);
     }
+    // 创建任务
     static Create(title: string, description: string, taskType: number, resource: number, assignee: number, callback: (resp: AxiosResponse) => void) {
         const params = new URLSearchParams();
         params.append("title", title);
@@ -70,6 +74,7 @@ export class TaskAPI {
 
         post("/Task", params, callback);
     }
+    // 修改任务详情
     static Alter(taskID: number, title: string, description: string, taskType: number, resource: number, assignee: number, callback: (resp: AxiosResponse) => void) {
         const params = new URLSearchParams();
         params.append("title", title);
@@ -79,6 +84,28 @@ export class TaskAPI {
         params.append("assignee", assignee.toString());
 
         put("/Task/" + taskID.toString(), params, callback);
+    }
+    // 获取任务分配
+    static GetAssign(taskID: number, callback: (resp: AxiosResponse) => void) {
+        get("/Assign/" + taskID, callback);
+    }
+    // 添加任务分配
+    static AddAssign(taskID: number, userID: number, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("userID", userID.toString());
+
+        post("/Assign/" + taskID, params, callback);
+    }
+    // 删除任务分配
+    static DeleteAssign(taskID: number, userID: number, callback: (resp: AxiosResponse) => void) {
+        del("/Assign/" + taskID + "/" + userID, callback);
+    }
+    // 设置任务状态
+    static SetStatus(taskID: number, status: number, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("status", status.toString());
+
+        patch("/Task/" + taskID + "/status", params, callback);
     }
 }
 
