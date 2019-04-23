@@ -3,7 +3,7 @@
     <div class="panel user-panel" v-if="user.uid > 0">
       <div class="panel-heading user-image">
         <figure class="image is-square">
-          <img :src="imgUrl">
+          <img :src="imgUrl" @error="onImageLoadError">
         </figure>
       </div>
       <div class="panel-tabs user-name">{{user.name}}</div>
@@ -58,6 +58,7 @@ export default class UserInfoPage extends Vue {
 
   onSuccess(data: any) {
     this.user = data;
+    this.imgUrl = this.calcImgUrl;
     this.clear();
   }
   onFail(code: number, msg: string) {
@@ -65,10 +66,16 @@ export default class UserInfoPage extends Vue {
     this.message = msg;
   }
 
-  get imgUrl() {
+  imgUrl = "";
+
+  get calcImgUrl() {
     let mail = this.user.mail.toLowerCase().trim();
     let hash = Md5.hashStr(mail);
-    return "https://www.gravatar.com/avatar/" + hash + "?size=300";
+    return "https://www.gravatar.com/avatar/" + hash + "?size=300&d=404";
+  }
+
+  onImageLoadError() {
+    this.imgUrl = "/logo.svg";
   }
 
   get userType() {

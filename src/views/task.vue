@@ -48,19 +48,19 @@
           <span class="icon">
             <font-awesome-icon icon="clock"/>
           </span>
-          <span>{{timeStr(task.createAt)}}</span>
+          <time :datetime="fullTimeStr(task.createAt)">{{timeStr(task.createAt)}}</time>
         </span>
         <span class="tag is-info">
           <span class="icon">
             <font-awesome-icon icon="history"/>
           </span>
-          <span>{{timeStr(task.updateAt)}}</span>
+          <time :datetime="fullTimeStr(task.updateAt)">{{timeStr(task.updateAt)}}</time>
         </span>
         <span class="tag is-info" v-if="task.finishAt !== 0">
           <span class="icon">
             <font-awesome-icon icon="user-clock"/>
           </span>
-          <span>{{timeStr(task.finishAt)}}</span>
+          <time :datetime="fullTimeStr(task.finishAt)">{{timeStr(task.finishAt)}}</time>
         </span>
       </div>
       <p>{{task.description}}</p>
@@ -101,7 +101,9 @@ export default class TaskPage extends Vue {
   onSuccess(resp: any) {
     this.task = resp;
     this.clear();
-    this.editable = this.task.assigner.uid === User.UID || (this.task.assignee !== undefined && this.task.assignee.uid === User.UID);
+    this.editable =
+      this.task.assigner.uid === User.UID ||
+      (this.task.assignee !== undefined && this.task.assignee.uid === User.UID);
   }
 
   editable = false;
@@ -124,7 +126,10 @@ export default class TaskPage extends Vue {
     return TaskUtils.typeStr(this.task.taskType);
   }
   timeStr(ts: number) {
-    return TaskUtils.dateStr(ts);
+    return TaskUtils.dateTimeShortStr(ts);
+  }
+  fullTimeStr(ts: number) {
+    return TaskUtils.dateTimeStr(ts);
   }
 
   jumpToUser(id: number) {

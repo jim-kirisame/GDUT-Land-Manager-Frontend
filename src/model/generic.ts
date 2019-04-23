@@ -29,7 +29,7 @@ export default class Callback {
             console.log("resp undefined");
         }
 
-        if (resp.status == 401) {
+        if (resp.status === 401) {
             User.OnLogout();
             this.Fail(401, "用户需要登录");
             return;
@@ -95,6 +95,35 @@ export class TaskUtils {
             "-" +
             d.getDate().toString()
         );
+    }
+
+    static timeStr(ts: number) {
+        let d = new Date(ts * 1000);
+        return (
+            d.getHours().toString() +
+            ":" +
+            d.getMinutes().toString() +
+            ":" +
+            d.getSeconds().toString()
+        );
+    }
+
+    static dateTimeShortStr(ts: number) {
+        let d = new Date(ts * 1000);
+        return (
+            (d.getMonth() + 1).toString() +
+            "-" +
+            d.getDate().toString() +
+            " " +
+            d.getHours().toString() +
+            ":" +
+            d.getMinutes().toString()
+        );
+    }
+
+    static dateTimeStr(ts: number) {
+        let d = new Date(ts * 1000);
+        return d.toString();
     }
 
     static statusStr(s: number) {

@@ -71,7 +71,7 @@ export default class singleInput extends Vue {
   }
 
   setUser(user: UserInfo) {
-    if (this.savedUser != user) {
+    if (this.savedUser !== user) {
       this.savedUser = user;
       this.$emit("input", this.savedUser);
     }

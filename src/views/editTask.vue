@@ -223,8 +223,8 @@ export default class AddTask extends Vue {
     this.message = "更新成功";
   }
 
-  assign = new Array<UserInfo>();
-  savedAssign = new Array<UserInfo>();
+  assign: UserInfo[] = [];
+  savedAssign: UserInfo[] = [];
   onAssignLoadSuccess(data: any) {
     let res = data as UserInfo[];
     this.assign = data;
@@ -232,7 +232,7 @@ export default class AddTask extends Vue {
     Object.assign(this.savedAssign, this.assign);
   }
 
-  assignSearch = new Array<UserInfo>();
+  assignSearch: UserInfo[] = [];
   onInput(query: string) {
     if (query.trim() !== "") {
       new User().SearchUser(

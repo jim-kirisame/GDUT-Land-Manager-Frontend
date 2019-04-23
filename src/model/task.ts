@@ -49,8 +49,8 @@ export default class Task {
     }
 
     AlterAssign(taskID: number, oldUser: UserInfo[], newUser: UserInfo[], callback: Callback) {
-        let delUsers = new Array<number>();
-        let addUsers = new Array<number>();
+        let delUsers: number[] = [];
+        let addUsers: number[] = [];
 
         oldUser.forEach((o) => {
             let check = false;
