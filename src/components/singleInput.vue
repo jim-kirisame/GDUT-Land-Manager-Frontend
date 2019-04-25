@@ -10,7 +10,7 @@
         :class="{'is-success': savedUser.uid>0}"
         :disabled="disabled"
       >
-      <UserList :users="users" @onSelect="itemClick" />
+      <UserList :users="users" @onSelect="itemClick"/>
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ import User from "../model/user";
 import UserSelectList from "./userSelectList.vue";
 
 @Component({
-  components:{
+  components: {
     UserList: UserSelectList
   }
 })
@@ -94,5 +94,4 @@ export default class singleInput extends Vue {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

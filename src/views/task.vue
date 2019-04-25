@@ -5,12 +5,18 @@
         <div class="column is-four-fifths">
           <h1 class="title">{{task.title}}</h1>
         </div>
-        <div class="column" v-if="editable">
-          <a class="button is-primary is-pulled-right" @click="editTask">
+        <div class="column">
+          <a class="button is-primary is-pulled-right" @click="editTask" v-if="editable">
             <span class="icon">
               <font-awesome-icon icon="edit"/>
             </span>
             <span>编辑</span>
+          </a>
+          <a class="button is-pulled-right" @click="back">
+            <span class="icon">
+              <font-awesome-icon icon="backward"/>
+            </span>
+            <span>返回</span>
           </a>
         </div>
       </div>
@@ -113,6 +119,11 @@ export default class TaskPage extends Vue {
       params: { id: this.task.taskID.toString() }
     });
   }
+  back() {
+    this.$router.push({
+      name: "tasks"
+    });
+  }
 
   onFail(code: number, msg: string) {
     this.message = msg;
@@ -144,4 +155,9 @@ export default class TaskPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.column {
+  .button + .button {
+    margin-right: 1em;
+  }
+}
 </style>

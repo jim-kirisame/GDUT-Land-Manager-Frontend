@@ -19,7 +19,7 @@
           @input="onInput($event.target.value)"
           :disabled="disabled"
         >
-        <UserList :users="searchUser" @onSelect="itemClick" />
+        <UserList :users="searchUser" @onSelect="itemClick"/>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ import UserGroup from "../model/userGroup";
 import UserSelectList from "./userSelectList.vue";
 
 @Component({
-  components:{
+  components: {
     UserList: UserSelectList
   }
 })
@@ -104,7 +104,7 @@ export default class multiInput extends Vue {
       if (!hasKey) this.searchUser.push(element);
     });
   }
-  
+
   imgUrl(user: UserInfo) {
     return UserUtils.getPicUrl(user.mail) + "?size=50";
   }

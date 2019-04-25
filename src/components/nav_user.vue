@@ -1,9 +1,9 @@
 <template>
   <div class="navbar-item has-dropdown is-hoverable" v-if="logined">
-    <a class="navbar-link">{{userName}}</a>
+    <a class="navbar-link" @click="jumpTo('userMe')">{{userName}}</a>
 
     <div class="navbar-dropdown">
-      <a class="navbar-item" @click="jumpTo('userMe')">{{userACL}}</a>
+      <p class="navbar-item">{{userName}} ({{userACL}})</p>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="jumpTo('tasks')" v-if="!isAdmin">我的任务</a>
       <a class="navbar-item" @click="jumpTo('groupManager')" v-if="isGroup">成员管理</a>
@@ -48,26 +48,27 @@ export default class userNav extends Vue {
   }
 
   mounted() {
+    this.onLoginStatusChange();
     User.OnLoginStatusChange.on(this.onLoginStatusChange);
   }
 
   private onLoginStatusChange() {
     this.logined = User.IsLogin;
     this.userName = User.Name;
+    this.acl = Number(User.ACL);
+    this.userACL = UserUtils.typeStr(this.acl);
   }
 
   logined = User.IsLogin;
   userName = User.Name;
+  acl = 1;
+  userACL = "";
 
   get isAdmin() {
-    return User.ACL === "0";
+    return this.acl === 0;
   }
   get isGroup() {
-    return User.ACL === "2";
-  }
-  get userACL() {
-    let acl = User.ACL;
-    return UserUtils.typeStr(Number(acl));
+    return this.acl === 2;
   }
 }
 </script>

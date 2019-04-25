@@ -1,7 +1,19 @@
 <template>
   <div class="box">
-    <h1 class="title" v-if="task.taskID <= 0">添加任务</h1>
-    <h1 class="title" v-else>编辑任务</h1>
+    <div class="columns">
+      <div class="column is-four-fifths">
+        <h1 class="title" v-if="task.taskID <= 0">添加任务</h1>
+        <h1 class="title" v-else>编辑任务</h1>
+      </div>
+      <div class="column">
+        <a class="button is-pulled-right" @click="back">
+          <span class="icon">
+            <font-awesome-icon icon="backward"/>
+          </span>
+          <span>返回</span>
+        </a>
+      </div>
+    </div>
     <Notify :msg="message" @clear="clear"/>
     <div class="fields">
       <h4 class="title is-4">任务信息</h4>
@@ -140,6 +152,19 @@ export default class AddTask extends Vue {
 
   mounted() {
     this.onIdChange();
+  }
+
+  back() {
+    if (this.task.taskID > 0) {
+      this.$router.push({
+        name: "task",
+        params: { id: this.task.taskID.toString() }
+      });
+    } else {
+      this.$router.push({
+        name: "tasks"
+      });
+    }
   }
 
   onLoadSuccess(data: any) {
