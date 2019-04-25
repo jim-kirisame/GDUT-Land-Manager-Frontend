@@ -8,9 +8,22 @@
               <img src="@/assets/logo.svg" class="logo">
             </a>
             <p class="navbar-item">土地调查管理系统</p>
+            <a
+              role="button"
+              class="navbar-burger"
+              data-target="navMenu"
+              aria-label="menu"
+              aria-expanded="false"
+              :class="menuState ? 'is-active' : ''"
+              @click="toggle"
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
           </div>
 
-          <div id="navbarBasicExample" class="navbar-menu">
+          <div id="navbarBasicExample" class="navbar-menu" :class="menuState ? 'is-active' : ''">
             <div class="navbar-start"></div>
             <div class="navbar-end">
               <a
@@ -20,7 +33,7 @@
                 :class="navIndex === index ? 'item-active' : ''"
                 @click="routerLink(index, item.path, item.abs)"
               >{{ item.title }}</a>
-              <navUser/>
+              <navUser @onNav="onNav"/>
             </div>
           </div>
         </div>
@@ -104,10 +117,21 @@ export default class App extends Vue {
       this.navIndex = index;
       this.$router.push(path);
     }
+    this.onNav();
+  }
+  onNav() {
+    // close menu
+    this.menuState = false;
   }
   home() {
     this.navIndex = -1;
     this.$router.push({ name: "home" });
+    this.onNav();
+  }
+
+  menuState = false;
+  toggle() {
+    this.menuState = !this.menuState;
   }
 }
 </script>
@@ -143,7 +167,7 @@ $secondary-bkg: #fafafa;
   background-color: $secondary-bkg;
 }
 
-$header-height: 60px;
+$header-height: 50px;
 .header {
   height: $header-height;
   background-color: $secondary-bkg;

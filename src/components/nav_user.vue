@@ -32,13 +32,14 @@ import Callback, { UserUtils } from "../model/generic";
 export default class userNav extends Vue {
   jumpTo(name: string) {
     this.$router.push({ name: name });
+    this.$emit("onNav");
   }
 
   logout() {
     new User().Logout(
       new Callback(
         a => {
-          this.$router.push({ name: "home" });
+          this.jumpTo("home");
         },
         (a, b) => {}
       )
