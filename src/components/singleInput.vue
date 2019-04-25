@@ -10,16 +10,7 @@
         :class="{'is-success': savedUser.uid>0}"
         :disabled="disabled"
       >
-      <div class="search-result box" id="search-result" v-if="users.length > 0">
-        <ul>
-          <a v-for="(item, index) in users" :key="index" :data-id="index" @click="itemClick(index)">
-            <li>
-              {{item.name}}
-              <span class="has-text-weight-light">({{item.mail}})</span>
-            </li>
-          </a>
-        </ul>
-      </div>
+      <UserList :users="users" @onSelect="itemClick" />
     </div>
   </div>
 </template>
@@ -28,8 +19,13 @@
 import { Vue, Component, Watch, Prop } from "vue-property-decorator";
 import Callback, { UserInfo } from "../model/generic";
 import User from "../model/user";
+import UserSelectList from "./userSelectList.vue";
 
-@Component
+@Component({
+  components:{
+    UserList: UserSelectList
+  }
+})
 export default class singleInput extends Vue {
   users: UserInfo[] = [];
 
@@ -98,22 +94,5 @@ export default class singleInput extends Vue {
 </script>
 
 <style lang="scss" scoped>
-$padding: 6px;
 
-.search-result {
-  position: absolute;
-  background: white;
-  width: inherit;
-  z-index: 1;
-  padding: $padding 0;
-  ul {
-    margin: 0px;
-    li {
-      padding: $padding $padding * 2;
-    }
-    a:hover li {
-      background: #f5f5f5;
-    }
-  }
-}
 </style>

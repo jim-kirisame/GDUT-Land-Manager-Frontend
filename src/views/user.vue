@@ -33,7 +33,6 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import Callback, { UserInfo, UserUtils } from "../model/generic";
-import { Md5 } from "ts-md5";
 import User from "../model/user";
 import Notification from "../components/notification.vue";
 
@@ -69,9 +68,7 @@ export default class UserInfoPage extends Vue {
   imgUrl = "";
 
   get calcImgUrl() {
-    let mail = this.user.mail.toLowerCase().trim();
-    let hash = Md5.hashStr(mail);
-    return "https://www.gravatar.com/avatar/" + hash + "?size=300&d=404";
+    return UserUtils.getPicUrl(this.user.mail) + "?size=300&d=404";
   }
 
   onImageLoadError() {

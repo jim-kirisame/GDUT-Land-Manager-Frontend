@@ -89,6 +89,14 @@ export default new Router({
         meta: {
           title: "编辑任务"
         }
+      },
+      {
+        path: "/manager/group",
+        name: "groupManager",
+        component: () => import(/* webpackChunkName: "task" */ "./views/groupUsers.vue"),
+        meta: {
+          title: "员工管理"
+        }
       }
     ]
 });

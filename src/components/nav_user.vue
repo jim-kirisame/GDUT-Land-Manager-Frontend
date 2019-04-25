@@ -6,6 +6,7 @@
       <a class="navbar-item" @click="jumpTo('userMe')">{{userACL}}</a>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="jumpTo('tasks')" v-if="!isAdmin">我的任务</a>
+      <a class="navbar-item" @click="jumpTo('groupManager')" v-if="isGroup">成员管理</a>
       <a class="navbar-item" @click="jumpTo('admin')" v-if="isAdmin">管理</a>
       <a class="navbar-item" @click="jumpTo('userSetting')">用户设置</a>
       <hr class="navbar-divider">
@@ -60,6 +61,9 @@ export default class userNav extends Vue {
 
   get isAdmin() {
     return User.ACL === "0";
+  }
+  get isGroup() {
+    return User.ACL === "2";
   }
   get userACL() {
     let acl = User.ACL;

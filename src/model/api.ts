@@ -113,6 +113,14 @@ export class GroupAPI {
     static GetSelf(callback: (resp: AxiosResponse) => void) {
         get("/UserGroup", callback);
     }
+    static AddUser(uid: number, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("uid", uid.toString());
+        post("/UserGroup", params, callback);
+    }
+    static DelUser(uid: number, callback: (resp: AxiosResponse) => void) {
+        del("/UserGroup/" + uid, callback);
+    }
 }
 
 function post(path: string, form: URLSearchParams, callback: (resp: AxiosResponse) => void, config?: any) {

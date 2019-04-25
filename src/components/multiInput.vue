@@ -1,8 +1,11 @@
 <template>
-  <div class="single-search">
+  <div class="multi-search">
     <div class="field has-addons">
       <div class="control tags are-medium added-tag" v-if="savedUser.length > 0">
         <span class="tag" v-for="(item, index) in savedUser" :key="index">
+          <figure class="image is-32x32">
+            <img class="is-rounded" :src="imgUrl(item)">
+          </figure>
           {{item.name}}
           <button class="delete is-small" @click="delUser(index)" :disabled="disabled"></button>
         </span>
@@ -16,16 +19,7 @@
           @input="onInput($event.target.value)"
           :disabled="disabled"
         >
-        <div class="search-result box" id="search-result" v-if="searchUser.length > 0">
-          <ul>
-            <a v-for="(item, index) in searchUser" :key="index" @click="itemClick(index)">
-              <li>
-                {{item.name}}
-                <span class="has-text-weight-light">({{item.mail}})</span>
-              </li>
-            </a>
-          </ul>
-        </div>
+        <UserList :users="searchUser" @onSelect="itemClick" />
       </div>
     </div>
   </div>
@@ -33,10 +27,15 @@
 
 <script lang="ts">
 import { Vue, Component, Watch, Prop } from "vue-property-decorator";
-import Callback, { UserInfo } from "../model/generic";
+import Callback, { UserInfo, UserUtils } from "../model/generic";
 import UserGroup from "../model/userGroup";
+import UserSelectList from "./userSelectList.vue";
 
-@Component
+@Component({
+  components:{
+    UserList: UserSelectList
+  }
+})
 export default class multiInput extends Vue {
   @Prop()
   inputUser!: UserInfo[];
@@ -56,13 +55,17 @@ export default class multiInput extends Vue {
   watchVal(newVal: UserInfo[], oldVal: UserInfo[]) {
     this.savedUser = newVal;
     // 更新内容后去重
-    this.setSearchUser(this.searchUser);
+    this.updateList();
+  }
+
+  mounted() {
+    this.savedUser = this.value;
   }
 
   @Watch("inputUser")
   watchUser(newVal: UserInfo[], oldVal: UserInfo[]) {
     // 更新内容后去重
-    this.setSearchUser(newVal);
+    this.updateList();
   }
 
   onInput(text: string) {
@@ -72,24 +75,26 @@ export default class multiInput extends Vue {
 
   // 添加一个
   itemClick(index: number) {
+    this.$emit("add", this.searchUser[index]);
     this.setUser(this.searchUser[index]);
   }
 
   setUser(user: UserInfo) {
     this.savedUser.push(user);
-    this.setSearchUser(this.searchUser);
+    this.updateList();
     this.$emit("input", this.savedUser);
   }
   // 删除一个
   delUser(index: number) {
+    this.$emit("remove", this.savedUser[index]);
     this.savedUser.splice(index, 1);
     this.$emit("input", this.savedUser);
   }
 
   // 去重
-  setSearchUser(user: UserInfo[]) {
+  updateList() {
     this.searchUser = [];
-    user.forEach(element => {
+    this.inputUser.forEach(element => {
       let hasKey = false;
       this.savedUser.forEach(a => {
         if (a.uid === element.uid) {
@@ -97,29 +102,31 @@ export default class multiInput extends Vue {
         }
       });
       if (!hasKey) this.searchUser.push(element);
-      else console.log("wtf");
     });
+  }
+  
+  imgUrl(user: UserInfo) {
+    return UserUtils.getPicUrl(user.mail) + "?size=50";
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$padding: 6px;
+$lineHeight: 50px;
 
-.search-result {
-  position: absolute;
-  background: white;
-  width: inherit;
-  z-index: 1;
-  padding: $padding 0;
-  ul {
-    margin: 0px;
-    li {
-      padding: $padding $padding * 2;
+.multi-search {
+  height: $lineHeight;
+  .tag {
+    height: $lineHeight;
+    figure {
+      margin-right: 0.5em;
     }
-    a:hover li {
-      background: #f5f5f5;
+    button {
+      margin-left: 0.5rem;
     }
+  }
+  input {
+    height: $lineHeight;
   }
 }
 

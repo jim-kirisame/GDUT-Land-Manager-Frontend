@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import User from "./user";
+import { Md5 } from "ts-md5";
 
 export class ResponseData {
     code: number = 0;
@@ -37,6 +38,7 @@ export default class Callback {
 
         let response = resp.data as ResponseData;
         if (response !== undefined) {
+            console.log(response);
             if (response.code !== 0) {
                 this.Fail(response.code, response.message);
             } else {
@@ -169,5 +171,10 @@ export class UserUtils {
             default:
                 return "未知";
         }
+    }
+    static getPicUrl(mail: string) {
+        let lowmail = mail.toLowerCase().trim();
+        let hash = Md5.hashStr(lowmail);
+        return "https://www.gravatar.com/avatar/" + hash;
     }
 }
