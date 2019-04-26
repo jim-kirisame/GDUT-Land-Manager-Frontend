@@ -42,7 +42,7 @@
         </a>
         <a
           class="tag is-info"
-          v-if="task.assignee !== undefined && task.assignee.uid !== 0"
+          v-if="task.assignee !== undefined && task.assignee !== null && task.assignee.uid !== 0"
           @click="jumpToUser(task.assignee.uid)"
         >
           <span class="icon">
