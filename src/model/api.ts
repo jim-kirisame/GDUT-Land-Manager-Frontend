@@ -48,6 +48,16 @@ export class UserAPI {
     static SearchUser(name: string, type: string, callback: (resp: AxiosResponse) => void) {
         get("/User/search/" + name + "?type=" + type, callback);
     }
+
+    static GetUsers(count: number, offset: number, callback: (resp: AxiosResponse) => void) {
+        get("/User?count=" + count + "&offset=" + offset, callback);
+    }
+
+    static AlterACL(id: number, acl: number, callback: (resp: AxiosResponse) => void) {
+        const params = new URLSearchParams();
+        params.append("acl", acl.toString());
+        put("/User/" + id + "/acl", params, callback);
+    }
 }
 
 export class TaskAPI {

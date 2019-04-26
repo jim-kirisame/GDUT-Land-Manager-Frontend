@@ -172,6 +172,7 @@ export class UserUtils {
                 return "未知";
         }
     }
+
     static getPicUrl(mail: string) {
         let lowmail = mail.toLowerCase().trim();
         let hash = Md5.hashStr(lowmail);

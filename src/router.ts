@@ -81,6 +81,13 @@ export default new Router({
         meta: {
           title: "编辑任务"
         }
+      }, {
+        path: "/admin",
+        name: "admin",
+        component: () => import(/* webpackChunkName: "admin" */ "./views/userList.vue"),
+        meta: {
+          title: "用户管理"
+        }
       }
     ]
 });

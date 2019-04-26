@@ -74,4 +74,12 @@ export default class User {
     SearchUser(name: string, callback: Callback) {
         UserAPI.SearchUser(name, "user", (p) => { callback.RespHandler(p); });
     }
+
+    GetUsers(limit: number, offset: number, callback: Callback) {
+        UserAPI.GetUsers(limit, offset, (p) => { callback.RespHandler(p); });
+    }
+
+    AlterUserACL(id: number, acl: number, callback: Callback) {
+        UserAPI.AlterACL(id, acl, (p) => { callback.RespHandler(p); });
+    }
 }
