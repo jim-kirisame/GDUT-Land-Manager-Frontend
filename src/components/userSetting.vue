@@ -1,5 +1,5 @@
 <template>
-  <div class="user-info box">
+  <div class="user-info panel">
     <div class="field">
       <label class="label">昵称</label>
       <div class="control">

@@ -1,10 +1,9 @@
 <template>
-  <div class="box">
-    <h1 class="title">成员管理</h1>
+  <div>
     <Notify :msg="message" @clear="clear"/>
     <div class="fields">
       <div class="field">
-        <label class="label">我的成员</label>
+        <label class="label">成员列表</label>
         <MultiInput
           v-model="users"
           :inputUser="usersSearch"

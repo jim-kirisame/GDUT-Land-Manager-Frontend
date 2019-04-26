@@ -30,14 +30,6 @@ export default new Router({
         }
       },
       {
-        path: "/userSetting",
-        name: "userSetting",
-        component: () => import(/* webpackChunkName: "user" */ "./views/userSetting.vue"),
-        meta: {
-          title: "我的信息"
-        }
-      },
-      {
         path: "/user/:id",
         name: "userInfo",
         component: () => import(/* webpackChunkName: "user" */ "./views/user.vue"),
@@ -88,14 +80,6 @@ export default new Router({
         props: (route) => ({ id: route.params.id }),
         meta: {
           title: "编辑任务"
-        }
-      },
-      {
-        path: "/manager/group",
-        name: "groupManager",
-        component: () => import(/* webpackChunkName: "task" */ "./views/groupUsers.vue"),
-        meta: {
-          title: "员工管理"
         }
       }
     ]

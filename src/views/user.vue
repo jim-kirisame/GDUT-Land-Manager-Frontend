@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="panel user-panel" v-if="user.uid > 0">
+  <div class="columns">
+    <div class="panel user-panel column is-one-quarter" v-if="user.uid > 0">
       <div class="panel-heading user-image">
         <figure class="image is-square">
           <img :src="imgUrl" @error="onImageLoadError">
@@ -27,6 +27,10 @@
       </a>
     </div>
     <notify :msg="message" level="is-danger" @clear="clear"/>
+    <div class="column" v-if="id === 0">
+      <UserSet />
+      <Users v-if="user.type === 2"/>
+    </div>
   </div>
 </template>
 
@@ -35,10 +39,14 @@ import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import Callback, { UserInfo, UserUtils } from "../model/generic";
 import User from "../model/user";
 import Notification from "../components/notification.vue";
+import UserSetting from "../components/userSetting.vue";
+import GroupUsers from "../components/groupUsers.vue";
 
 @Component({
   components: {
-    notify: Notification
+    notify: Notification,
+    UserSet: UserSetting,
+    Users: GroupUsers
   }
 })
 export default class UserInfoPage extends Vue {
@@ -96,7 +104,6 @@ export default class UserInfoPage extends Vue {
 
 <style lang="scss">
 .user-panel {
-  max-width: 300px;
   background: white;
 }
 .user-image {

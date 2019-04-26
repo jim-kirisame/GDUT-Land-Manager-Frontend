@@ -4,11 +4,8 @@
 
     <div class="navbar-dropdown">
       <p class="navbar-item">{{userName}} ({{userACL}})</p>
-      <hr class="navbar-divider">
       <a class="navbar-item" @click="jumpTo('tasks')" v-if="!isAdmin">我的任务</a>
-      <a class="navbar-item" @click="jumpTo('groupManager')" v-if="isGroup">成员管理</a>
       <a class="navbar-item" @click="jumpTo('admin')" v-if="isAdmin">管理</a>
-      <a class="navbar-item" @click="jumpTo('userSetting')">用户设置</a>
       <hr class="navbar-divider">
       <a class="navbar-item" @click="logout">注销</a>
     </div>
