@@ -44,7 +44,10 @@
       <div class="push"></div>
     </div>
     <footer class="footer has-shadow">
-      <div class="container">Copyright &copy; 2019 Lotlab</div>
+      <div class="container">
+        Copyright &copy; 2019 Lotlab
+        <a class="is-pulled-right" target="_blank" href="/swagger/">API文档</a>
+        </div>
     </footer>
   </div>
 </template>
@@ -109,7 +112,7 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
   }
 })
 export default class App extends Vue {
-  nav = [{ title: "Swagger", path: "/swagger/", abs: true }];
+  nav = [];
   navIndex = 0;
 
   routerLink(index: number, path: string, abs: boolean) {
