@@ -43,7 +43,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - 任务结果的显示
   - ~~相片的显示~~
   - 巡查路线的显示
-  - 地块中心点的显示
+  - ~~地块中心点的显示~~
 - ~~任务列表~~
 - ~~任务详细页面~~
 

@@ -2,7 +2,9 @@
   <div>
     <div class="content">
       <h4 class="title is-4">位置</h4>
-      <div class="task-position">纬度{{taskResult.positionY}}, 经度{{taskResult.positionX}}</div>
+      <div class="task-position">
+        <OnePointMap :position="centerPos"/>
+      </div>
     </div>
     <div v-if="taskResult.photos.length > 0">
       <h4 class="title is-4">相片</h4>
@@ -71,10 +73,20 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop, Watch } from "vue-property-decorator";
-import { ExploreTaskResult, PhotoData, TaskUtils } from "../model/generic";
-import { baseDomain } from '../model/api';
+import {
+  ExploreTaskResult,
+  PhotoData,
+  TaskUtils,
+  LocationData
+} from "../model/generic";
+import { baseDomain } from "../model/api";
+import OnePointMap from "./mapOnePoint.vue";
 
-@Component
+@Component({
+  components: {
+    OnePointMap
+  }
+})
 export default class ExploreResult extends Vue {
   @Prop()
   taskResult!: ExploreTaskResult;
@@ -107,6 +119,13 @@ export default class ExploreResult extends Vue {
 
   get baseURL() {
     return baseDomain;
+  }
+  get centerPos() {
+    return {
+      positionX: this.taskResult.positionX,
+      positionY: this.taskResult.positionY,
+      coordinate: this.taskResult.coordinate
+    };
   }
 }
 </script>
@@ -161,5 +180,8 @@ export default class ExploreResult extends Vue {
   span {
     display: inline-block;
   }
+}
+.task-position-map {
+  height: 300px;
 }
 </style>
