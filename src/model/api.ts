@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-export var baseDomain = "//land.bigkeer.cn"
+export var baseDomain = "//land.bigkeer.cn";
 export var baseUrl = baseDomain + "/api";
 // export var baseUrl = "http://localhost:2882/api";
 

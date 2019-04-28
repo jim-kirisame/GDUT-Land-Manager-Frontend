@@ -14,18 +14,9 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { LocationData } from "../model/generic";
-import GCoord from "gcoord";
-import BaiduMap from "vue-baidu-map/components/map/Map.vue";
-import BmNavigation from "vue-baidu-map/components/controls/Navigation.vue";
-import BmMarker from "vue-baidu-map/components/overlays/Marker.vue";
+import gcoord from "gcoord";
 
-@Component({
-  components: {
-    BaiduMap,
-    BmNavigation,
-    BmMarker
-  }
-})
+@Component
 export default class OnePointMap extends Vue {
   @Prop()
   position!: LocationData;
@@ -39,10 +30,10 @@ export default class OnePointMap extends Vue {
 
   convert(data: LocationData) {
     if (data.coordinate !== 2) {
-      let result = GCoord.transform(
+      let result = gcoord.transform(
         [data.positionX, data.positionY],
-        data.coordinate === 0 ? GCoord.WGS84 : GCoord.GCJ02,
-        GCoord.BD09
+        data.coordinate === 0 ? gcoord.WGS84 : gcoord.GCJ02,
+        gcoord.BD09
       ) as number[];
       return { lng: result[0], lat: result[1] };
     }
