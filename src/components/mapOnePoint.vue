@@ -1,6 +1,5 @@
 <template>
   <baidu-map
-    class="task-position-map"
     :center="center"
     :zoom="zoom"
     @ready="onMapReady"
@@ -13,8 +12,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
-import { LocationData } from "../model/generic";
-import gcoord from "gcoord";
+import { LocationData, MapCoordinate, CoordinateUtils } from "../model/generic";
 
 @Component
 export default class OnePointMap extends Vue {
@@ -28,16 +26,8 @@ export default class OnePointMap extends Vue {
     this.center = this.convert(this.position);
   }
 
-  convert(data: LocationData) {
-    if (data.coordinate !== 2) {
-      let result = gcoord.transform(
-        [data.positionX, data.positionY],
-        data.coordinate === 0 ? gcoord.WGS84 : gcoord.GCJ02,
-        gcoord.BD09
-      ) as number[];
-      return { lng: result[0], lat: result[1] };
-    }
-    return { lng: data.positionX, lat: data.positionY };
+  convert(data: LocationData): MapCoordinate {
+    return CoordinateUtils.convert(data);
   }
 }
 </script>

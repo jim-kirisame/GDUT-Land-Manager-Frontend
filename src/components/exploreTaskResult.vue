@@ -3,7 +3,7 @@
     <div class="content">
       <h4 class="title is-4">位置</h4>
       <div class="task-position">
-        <OnePointMap :position="centerPos"/>
+        <OnePointMap class="task-position-map" :position="centerPos"/>
       </div>
     </div>
     <div v-if="taskResult.photos.length > 0">
@@ -66,6 +66,12 @@
         <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
       </div>
     </div>
+    <div class="content">
+      <h4 class="title is-4">巡查路线</h4>
+      <div class="task-track">
+        <RouteMap class="task-track-map" :tracks="taskResult.tracks"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -80,11 +86,13 @@ import {
   LocationData
 } from "../model/generic";
 import { baseDomain } from "../model/api";
-import OnePointMap from "./mapOnePoint.vue";
+import OnePointMap from "../components/mapOnePoint.vue";
+import RouteMap from "../components/mapRoute.vue";
 
 @Component({
   components: {
-    OnePointMap
+    OnePointMap,
+    RouteMap
   }
 })
 export default class ExploreResult extends Vue {
@@ -183,5 +191,8 @@ export default class ExploreResult extends Vue {
 }
 .task-position-map {
   height: 300px;
+}
+.task-track-map {
+  height: 85vh;
 }
 </style>

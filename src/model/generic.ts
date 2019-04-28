@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import User from "./user";
 import { Md5 } from "ts-md5";
+import gcoord from "gcoord";
 
 export class ResponseData {
     code: number = 0;
@@ -87,38 +88,52 @@ export class TaskInfo {
 }
 
 export class TaskUtils {
+    static numStr(d: number) {
+        if(d < 10)return "0" + d.toString() ;
+        else return d.toString();
+    }
+
     static dateStr(ts: number) {
         let d = new Date(ts * 1000);
         return (
             d.getFullYear().toString() +
             "-" +
-            (d.getMonth() + 1).toString() +
+            TaskUtils.numStr(d.getMonth() + 1) +
             "-" +
-            d.getDate().toString()
+            TaskUtils.numStr(d.getDate())
         );
     }
 
     static timeStr(ts: number) {
         let d = new Date(ts * 1000);
         return (
-            d.getHours().toString() +
+            TaskUtils.numStr(d.getHours()) +
             ":" +
-            d.getMinutes().toString() +
+            TaskUtils.numStr(d.getMinutes()) +
             ":" +
-            d.getSeconds().toString()
+            TaskUtils.numStr(d.getSeconds())
+        );
+    }
+
+    static shortTimeStr(ts: number) {
+        let d = new Date(ts * 1000);
+        return (
+            TaskUtils.numStr(d.getHours()) +
+            ":" +
+            TaskUtils.numStr(d.getMinutes())
         );
     }
 
     static dateTimeShortStr(ts: number) {
         let d = new Date(ts * 1000);
         return (
-            (d.getMonth() + 1).toString() +
+            TaskUtils.numStr(d.getMonth() + 1) +
             "-" +
-            d.getDate().toString() +
+            TaskUtils.numStr(d.getDate()) +
             " " +
-            d.getHours().toString() +
+            TaskUtils.numStr(d.getHours()) +
             ":" +
-            d.getMinutes().toString()
+            TaskUtils.numStr(d.getMinutes())
         );
     }
 
@@ -220,4 +235,33 @@ export class PhotoData {
     photoTime!: number;
     taskID!: number;
     subID!: number;
+}
+
+export class MapCoordinate {
+    lng!: number;
+    lat!: number;
+}
+
+export class CoordinateUtils {
+    static convert(data: LocationData): MapCoordinate {
+        let coord = gcoord.WGS84;
+        switch (Number(data.coordinate)) {
+            case 0:
+                coord = gcoord.WGS84;
+                break;
+            case 1:
+                coord = gcoord.GCJ02;
+                break;
+            case 2:
+                coord = gcoord.BD09;
+                break;
+        }
+
+        let result = gcoord.transform(
+            [data.positionX, data.positionY],
+            coord,
+            gcoord.BD09
+        ) as number[];
+        return { lng: result[0], lat: result[1] };
+    }
 }
