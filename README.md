@@ -41,7 +41,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - ~~ 任务状态更新 ~~
 - ~~（企业）任务指派 ~~
 - 任务结果的显示
-  - 相片的显示
+  - ~~相片的显示~~
   - 巡查路线的显示
   - 地块中心点的显示
 - ~~任务列表~~

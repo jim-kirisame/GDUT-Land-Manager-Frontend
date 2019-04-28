@@ -144,6 +144,7 @@ export default class App extends Vue {
 <style lang="scss">
 body {
   color: #464646;
+  font-family: "Noto Sans CJK SC", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
 }
 
 a:hover {

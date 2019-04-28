@@ -38,7 +38,6 @@ export default class Callback {
 
         let response = resp.data as ResponseData;
         if (response !== undefined) {
-            console.log(response);
             if (response.code !== 0) {
                 this.Fail(response.code, response.message);
             } else {
@@ -178,4 +177,47 @@ export class UserUtils {
         let hash = Md5.hashStr(lowmail);
         return "https://www.gravatar.com/avatar/" + hash;
     }
+}
+
+export class ExploreTaskResult {
+    taskID!: number;
+    positionX!: number;
+    positionY!: number;
+    coordinate!: number;
+    tracks: TrackData[] = [];
+    photos: PhotoData[] = [];
+}
+
+export class TrackItemData {
+    pointX!: number;
+    pointY!: number;
+    user!: number;
+    timestamp!: number;
+}
+
+export class TrackData {
+    trackID!: number;
+    taskID!: number;
+    userID!: number;
+    track!: {
+        coorinate: number;
+        data: TrackItemData[];
+    };
+}
+
+export class LocationData {
+    positionX!: number;
+    positionY!: number;
+    coordinate!: number;
+}
+
+export class PhotoData {
+    photoID!: number;
+    author!: UserInfo;
+    path!: string;
+    description!: string;
+    location!: LocationData;
+    photoTime!: number;
+    taskID!: number;
+    subID!: number;
 }

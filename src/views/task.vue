@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Notify :msg="message" level="is-danger" @clear="clear"/>
     <div class="box" v-if="task.taskID > 0">
       <div class="columns">
         <div class="column is-four-fifths">
@@ -69,9 +70,14 @@
           <time :datetime="fullTimeStr(task.finishAt)">{{timeStr(task.finishAt)}}</time>
         </span>
       </div>
-      <p>{{task.description}}</p>
+      <div class="content">
+        <h4 class="title is-4">简介</h4>
+        <p>{{task.description}}</p>
+      </div>
+      <div class="task-result" v-if="taskResult !== null">
+        <ExploreResult :taskResult="taskResult" v-if="task.taskType === 0"/>
+      </div>
     </div>
-    <Notify :msg="message" level="is-danger" @clear="clear"/>
   </div>
 </template>
 
@@ -80,14 +86,22 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop, Watch } from "vue-property-decorator";
 import TaskTable from "../components/taskTable.vue";
-import Callback, { TaskInfo, UserInfo, TaskUtils } from "../model/generic";
+import Callback, {
+  TaskInfo,
+  UserInfo,
+  TaskUtils,
+  ExploreTaskResult,
+  PhotoData
+} from "../model/generic";
 import Task from "../model/task";
 import Notification from "../components/notification.vue";
 import User from "../model/user";
+import ExploreResult from "../components/exploreTaskResult.vue";
 
 @Component({
   components: {
-    Notify: Notification
+    Notify: Notification,
+    ExploreResult: ExploreResult
   }
 })
 export default class TaskPage extends Vue {
@@ -142,6 +156,12 @@ export default class TaskPage extends Vue {
   fullTimeStr(ts: number) {
     return TaskUtils.dateTimeStr(ts);
   }
+  get taskResult() {
+    if (this.task.taskType === 0) {
+      return this.task.result as ExploreTaskResult;
+    }
+    return null;
+  }
 
   jumpToUser(id: number) {
     this.$router.push({ name: "userInfo", params: { id: id.toString() } });
@@ -160,4 +180,5 @@ export default class TaskPage extends Vue {
     margin-right: 1em;
   }
 }
+
 </style>
