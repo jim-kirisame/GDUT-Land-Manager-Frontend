@@ -45,8 +45,8 @@
     </div>
     <footer class="footer has-shadow">
       <div class="container">
-        Copyright &copy; 2019 Lotlab
-        <a class="is-pulled-right" target="_blank" href="/swagger/">API文档</a>
+        Copyright &copy; 2019 广东工业大学, 2012-2019 Lotlab
+        <a class="is-pulled-right" target="_blank" href="/swagger/">API</a>
         </div>
     </footer>
   </div>
@@ -79,7 +79,9 @@ import {
   faBuilding,
   faPlus,
   faEdit,
-  faBackward
+  faBackward,
+  faChartArea,
+  faMobileAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import userNav from "./components/nav_user.vue";
@@ -102,7 +104,9 @@ library.add(
   faBuilding,
   faPlus,
   faEdit,
-  faBackward
+  faBackward,
+  faChartArea,
+  faMobileAlt
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

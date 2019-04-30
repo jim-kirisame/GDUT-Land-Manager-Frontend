@@ -3,7 +3,8 @@
     <a class="navbar-link" @click="jumpTo('userMe')">{{userName}}</a>
 
     <div class="navbar-dropdown">
-      <p class="navbar-item">{{userName}} ({{userACL}})</p>
+      <p class="navbar-item">{{userACL}}用户</p>
+      <hr class="navbar-divider">
       <a class="navbar-item" @click="jumpTo('tasks')" v-if="!isAdmin">我的任务</a>
       <a class="navbar-item" @click="jumpTo('admin')" v-if="isAdmin">用户管理</a>
       <hr class="navbar-divider">

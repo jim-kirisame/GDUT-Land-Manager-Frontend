@@ -89,7 +89,7 @@ export class TaskInfo {
 
 export class TaskUtils {
     static numStr(d: number) {
-        if(d < 10)return "0" + d.toString() ;
+        if (d < 10) return "0" + d.toString();
         else return d.toString();
     }
 
