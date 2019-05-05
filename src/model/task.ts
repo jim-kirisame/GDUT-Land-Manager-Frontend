@@ -22,7 +22,7 @@ export default class Task {
             assignee = -1;
         }
 
-        let resource = task.resource === (undefined || null) ? 0 : task.resource.id === (undefined || null) ? 0 : task.resource.id;
+        let resource = (task.resource === undefined) || (task.resource === null) ? 0 : task.resource.id === (undefined || null) ? 0 : task.resource.id;
         if (resource === 0) {
             resource = -1;
         }
