@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="content">
+    <div class="content" v-if="hasCenter">
       <h4 class="title is-4">位置</h4>
       <div class="task-position">
         <OnePointMap class="task-position-map" :position="centerPos"/>
@@ -66,7 +66,7 @@
         <button class="modal-close is-large" aria-label="close" @click="closeModal"></button>
       </div>
     </div>
-    <div class="content">
+    <div class="content" v-if="taskResult.tracks.length > 0">
       <h4 class="title is-4">巡查路线</h4>
       <div class="task-track">
         <RouteMap class="task-track-map" :tracks="taskResult.tracks"/>
@@ -128,6 +128,13 @@ export default class ExploreResult extends Vue {
   get baseURL() {
     return baseDomain;
   }
+
+  get hasCenter() {
+    return !(
+      this.taskResult.positionX === 0 && this.taskResult.positionY === 0
+    );
+  }
+
   get centerPos() {
     return {
       positionX: this.taskResult.positionX,
