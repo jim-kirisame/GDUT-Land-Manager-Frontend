@@ -215,7 +215,7 @@ export class TrackData {
     taskID!: number;
     userID!: number;
     track!: {
-        coorinate: number;
+        coordinate: number;
         data: TrackItemData[];
     };
 }

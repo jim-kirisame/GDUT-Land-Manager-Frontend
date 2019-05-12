@@ -40,7 +40,7 @@ export default class RouteMap extends Vue {
         this.convert({
           positionX: element.pointX,
           positionY: element.pointY,
-          coordinate: data.track.coorinate
+          coordinate: data.track.coordinate
         })
       );
     });
@@ -87,7 +87,7 @@ export default class RouteMap extends Vue {
           let a = this.convert({
             positionX: element.pointX,
             positionY: element.pointY,
-            coordinate: track.track.coorinate
+            coordinate: track.track.coordinate
           });
           x += a.lng;
           y += a.lat;
