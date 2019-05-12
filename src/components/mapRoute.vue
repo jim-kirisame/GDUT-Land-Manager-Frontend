@@ -4,7 +4,7 @@
     <div v-for="(item, index) in tracks" :key="index">
       <bm-polyline
         :path="convertTrack(item)"
-        stroke-color="blue"
+        :stroke-color="color(index)"
         :stroke-opacity="0.5"
         :stroke-weight="2"
       ></bm-polyline>
@@ -32,6 +32,11 @@ export default class RouteMap extends Vue {
   tracks!: TrackData[];
 
   zoom: number = 16;
+
+  colors = ["blue", "red", "yellow", "green", "cyan"];
+  color(index: number) {
+    return this.colors[index % this.colors.length];
+  }
 
   convertTrack(data: TrackData): MapCoordinate[] {
     let singlePath: MapCoordinate[] = [];
